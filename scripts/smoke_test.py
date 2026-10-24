@@ -18,7 +18,7 @@ if (sys.implementation.name != "cpython" or sys.version_info[:2] != (3, 15)
 import aiohttp
 
 PHRASE = "The bridge test is working. Blue lantern seven."
-CHUNK_BYTES = 16000 * 2 * 5
+CHUNK_BYTES = 16000 * 2
 
 
 def normalize(text):
@@ -67,7 +67,7 @@ def load_audio(args, directory):
         pcm = audio.readframes(audio.getnframes())
         if len(pcm) != audio.getnframes() * 2:
             raise RuntimeError("The WAV file contains incomplete audio frames.")
-    # Two complete five-second uploads exercise lookahead and the idle tail.
+    # Use complete one-second uploads, matching the Omi setting.
     size = max(2 * CHUNK_BYTES, ((len(pcm) + CHUNK_BYTES - 1) // CHUNK_BYTES) * CHUNK_BYTES)
     return pcm + bytes(size - len(pcm))
 
