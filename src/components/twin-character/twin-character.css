@@ -1,0 +1,136 @@
+.twin-character {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  isolation: isolate;
+  transform-style: preserve-3d;
+  outline-offset: 5px;
+}
+.twin-character > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.twin-character[role="button"] {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.twin-character[role="button"]:focus-visible {
+  outline: 3px solid #a7bdcf;
+  border-radius: 38%;
+}
+.creature-body {
+  transform-origin: 140px 242px;
+  animation: creature-breathe 5.6s ease-in-out infinite;
+}
+.creature-shadow {
+  transform-origin: center;
+  animation: creature-shadow 5.6s ease-in-out infinite;
+}
+.creature-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: creature-blink 6.8s ease-in-out infinite;
+}
+.creature-arm.right {
+  transform-origin: 208px 177px;
+}
+.is-greeting .creature-arm.right {
+  animation: creature-wave 0.8s ease-in-out;
+}
+.twin-character-happy .creature-body {
+  animation-duration: 4.8s;
+}
+.twin-character.is-mini .creature-shadow {
+  opacity: 0.55;
+}
+.twin-character.is-mini .creature-body {
+  animation-duration: 7.5s;
+}
+.twin-character-activity {
+  position: absolute;
+  display: flex;
+  gap: 3px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.twin-character-activity i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #a39b82;
+  animation: creature-work 1.5s ease-in-out infinite;
+}
+.twin-character-activity i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.twin-character-activity i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes creature-breathe {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.014, 1.018);
+  }
+}
+@keyframes creature-shadow {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scaleX(0.94);
+  }
+}
+@keyframes creature-blink {
+  0%,
+  42%,
+  46%,
+  100% {
+    transform: scaleY(1);
+  }
+  43.5%,
+  44.5% {
+    transform: scaleY(0.08);
+  }
+}
+@keyframes creature-wave {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  30% {
+    transform: rotate(-18deg);
+  }
+  65% {
+    transform: rotate(9deg);
+  }
+}
+@keyframes creature-work {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .creature-body,
+  .creature-eyes,
+  .creature-shadow,
+  .creature-arm,
+  .twin-character-activity i {
+    animation: none !important;
+  }
+}

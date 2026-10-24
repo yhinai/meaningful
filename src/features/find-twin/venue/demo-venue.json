@@ -1,0 +1,129 @@
+{
+  "eventId": "evt_demo",
+  "venueId": "venue_atrium_demo",
+  "name": "The Atrium",
+  "demo": true,
+  "endsAt": "2026-10-27T23:59:00.000Z",
+  "floors": [
+    {
+      "id": "ground",
+      "label": "Ground floor",
+      "imagePath": "/venues/demo-venue.svg",
+      "width": 1000,
+      "height": 760
+    }
+  ],
+  "zones": [
+    {
+      "id": "entrance",
+      "floorId": "ground",
+      "label": "Entrance",
+      "x": 500,
+      "y": 680,
+      "description": "Inside the main entrance, beneath the atrium skylight.",
+      "isMeetingSpot": true,
+      "kind": "landmark"
+    },
+    {
+      "id": "registration",
+      "floorId": "ground",
+      "label": "Registration",
+      "x": 125,
+      "y": 360,
+      "description": "The welcome desk at the west end of the central hallway.",
+      "isMeetingSpot": true,
+      "kind": "landmark"
+    },
+    {
+      "id": "coffee_bar",
+      "floorId": "ground",
+      "label": "Coffee Bar",
+      "x": 760,
+      "y": 540,
+      "description": "Through the east hallway, beside the long marble coffee counter.",
+      "isMeetingSpot": true,
+      "kind": "landmark"
+    },
+    {
+      "id": "main_stage",
+      "floorId": "ground",
+      "label": "Main Stage",
+      "x": 270,
+      "y": 255,
+      "description": "At the back of the auditorium, by the doors to the central hallway.",
+      "isMeetingSpot": true,
+      "kind": "landmark"
+    },
+    {
+      "id": "sponsor_booths",
+      "floorId": "ground",
+      "label": "Sponsor Booths",
+      "x": 760,
+      "y": 250,
+      "description": "The open space at the south end of the exhibition hall.",
+      "isMeetingSpot": true,
+      "kind": "landmark"
+    },
+    {
+      "id": "quiet_corner",
+      "floorId": "ground",
+      "label": "Quiet Corner",
+      "x": 250,
+      "y": 540,
+      "description": "The quiet lounge through the west hallway, next to the indoor garden.",
+      "isMeetingSpot": true,
+      "kind": "landmark"
+    },
+    {
+      "id": "hall_west",
+      "floorId": "ground",
+      "label": "West hallway",
+      "x": 250,
+      "y": 360,
+      "description": "Follow the central hallway west.",
+      "isMeetingSpot": false,
+      "kind": "corridor"
+    },
+    {
+      "id": "stage_door",
+      "floorId": "ground",
+      "label": "Auditorium doors",
+      "x": 270,
+      "y": 360,
+      "description": "Enter through the auditorium's south doors.",
+      "isMeetingSpot": false,
+      "kind": "corridor"
+    },
+    {
+      "id": "hall_center",
+      "floorId": "ground",
+      "label": "Central hallway",
+      "x": 500,
+      "y": 360,
+      "description": "Follow the atrium walkway to the central hallway.",
+      "isMeetingSpot": false,
+      "kind": "corridor"
+    },
+    {
+      "id": "hall_east",
+      "floorId": "ground",
+      "label": "East hallway",
+      "x": 760,
+      "y": 360,
+      "description": "Follow the central hallway east.",
+      "isMeetingSpot": false,
+      "kind": "corridor"
+    }
+  ],
+  "paths": [
+    { "fromZoneId": "entrance", "toZoneId": "hall_center" },
+    { "fromZoneId": "hall_center", "toZoneId": "stage_door" },
+    { "fromZoneId": "stage_door", "toZoneId": "hall_west" },
+    { "fromZoneId": "hall_west", "toZoneId": "registration" },
+    { "fromZoneId": "stage_door", "toZoneId": "main_stage" },
+    { "fromZoneId": "hall_west", "toZoneId": "quiet_corner" },
+    { "fromZoneId": "hall_center", "toZoneId": "hall_east" },
+    { "fromZoneId": "hall_east", "toZoneId": "sponsor_booths" },
+    { "fromZoneId": "hall_east", "toZoneId": "coffee_bar" }
+  ]
+}

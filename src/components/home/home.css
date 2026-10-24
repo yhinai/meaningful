@@ -1,0 +1,355 @@
+.conference-welcome {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 34px 0 28px;
+  text-align: center;
+}
+.welcome-twin-scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 224px;
+  isolation: isolate;
+}
+.welcome-twin-halo {
+  position: absolute;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f5f3eb88, white 72%);
+  box-shadow:
+    0 0 0 1px #f7f6f2,
+    0 0 0 25px #fafaf733,
+    0 0 0 26px #faf9f6;
+  z-index: -1;
+}
+.welcome-twin-caption {
+  margin-top: 5px;
+  font-size: 11px;
+  color: #a09c92;
+  letter-spacing: 0.15px;
+}
+.welcome-conference-content {
+  max-width: 500px;
+  margin: 28px auto 0;
+}
+.welcome-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  color: #939398;
+  letter-spacing: 1.7px;
+}
+.welcome-conference-content h1 {
+  margin-top: 16px;
+  font-size: clamp(37px, 4.4vw, 51px);
+  line-height: 1.06;
+  letter-spacing: -2.3px;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+.welcome-intro {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #86868b;
+  letter-spacing: -0.15px;
+}
+.welcome-event-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  border: 1px solid #ebebee;
+  border-radius: 15px;
+  padding: 18px 19px;
+  margin-top: 31px;
+}
+.welcome-event-monogram {
+  width: 45px;
+  height: 48px;
+  border-radius: 10px;
+  background: #f5f3ed;
+  color: #8c8064;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font:
+    italic 28px Georgia,
+    serif;
+  position: relative;
+  flex-shrink: 0;
+}
+.welcome-event-monogram > span {
+  position: absolute;
+  right: 4px;
+  bottom: 2px;
+  font: 7px var(--font-sans);
+}
+.welcome-event-card h2 {
+  font-size: 15px;
+  letter-spacing: -0.3px;
+  font-weight: 550;
+}
+.welcome-event-card p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 7px;
+  font-size: 11px;
+  color: #99999e;
+}
+.welcome-event-card p span {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.welcome-event-selected {
+  margin-left: auto;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  color: #9a9f91;
+}
+.welcome-event-selected i {
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+  background: #9aa18c;
+}
+.welcome-intention {
+  margin: 14px 0 23px;
+  text-align: left;
+  border: 1px solid #f0f0f2;
+  border-radius: 12px;
+}
+.welcome-intention summary {
+  min-height: 69px;
+  padding: 15px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  list-style: none;
+}
+.welcome-intention summary::-webkit-details-marker {
+  display: none;
+}
+.welcome-intention summary small {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1.3px;
+  color: #a1a1a7;
+}
+.welcome-intention summary strong {
+  font-size: 11px;
+  font-weight: 400;
+  color: #7e7e86;
+  display: block;
+  line-height: 1.7;
+  margin-top: 6px;
+}
+.welcome-intention summary > svg {
+  color: #a8a8af;
+  transition: transform 0.2s;
+}
+.welcome-intention[open] summary > svg {
+  transform: rotate(180deg);
+}
+.welcome-intention-edit {
+  padding: 0 18px 18px;
+}
+.welcome-intention-edit fieldset {
+  border: 0;
+  padding: 0;
+  margin: 8px 0 15px;
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.welcome-intention-edit legend {
+  padding: 0;
+  color: #86868b;
+  font-size: 11px;
+  margin-bottom: 12px;
+}
+.welcome-intention-edit fieldset label {
+  display: flex;
+  align-items: center;
+  border: 1px solid #eaeaec;
+  padding: 8px 11px;
+  min-height: 44px;
+  border-radius: 22px;
+  font-size: 11px;
+  color: #8e8e94;
+  cursor: pointer;
+  position: relative;
+}
+.welcome-intention-edit fieldset label.selected {
+  color: #3f3f44;
+  background: #f7f7f9;
+  border-color: #c5c5cc;
+}
+.welcome-intention-edit fieldset label:focus-within {
+  outline: 3px solid #99bce5;
+  outline-offset: 2px;
+}
+.welcome-intention-edit input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.welcome-intention-edit textarea {
+  width: 100%;
+  border: 1px solid #e9e9ed;
+  border-radius: 9px;
+  padding: 12px;
+  color: #67676e;
+  background: #fafafa;
+  font-size: 13px;
+  line-height: 1.7;
+  resize: vertical;
+}
+.welcome-start {
+  min-height: 49px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 38px;
+  background: #1d1d1f;
+  color: #fff;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0 27px;
+  transition:
+    transform 0.25s,
+    background 0.25s,
+    box-shadow 0.25s;
+}
+.welcome-start:hover {
+  background: #353538;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px #17171915;
+}
+.welcome-start:active {
+  transform: scale(0.98);
+}
+.welcome-choice {
+  font-size: 11px;
+  color: #a0a0a6;
+  line-height: 1.8;
+  margin-top: 15px;
+}
+.welcome-training-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  color: #8c8c94;
+  font-size: 11px;
+  margin-top: 7px;
+}
+.welcome-training-link:hover {
+  color: #333;
+}
+.welcome-error {
+  font-size: 12px;
+  color: #986f56;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.welcome-error a {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 6px;
+  text-decoration: underline;
+}
+@media (min-height: 1000px) and (min-width: 601px) {
+  .conference-welcome {
+    padding-top: 48px;
+  }
+  .welcome-conference-content {
+    margin-top: 33px;
+  }
+}
+@media (max-width: 600px) {
+  .conference-welcome {
+    padding-top: 13px;
+  }
+  .welcome-twin-scene {
+    height: 171px;
+  }
+  .welcome-twin-character {
+    transform: scale(0.82);
+  }
+  .welcome-twin-halo {
+    width: 156px;
+    height: 156px;
+    box-shadow:
+      0 0 0 1px #f7f6f2,
+      0 0 0 18px #fafaf733,
+      0 0 0 19px #faf9f6;
+  }
+  .welcome-twin-caption {
+    margin-top: -10px;
+    font-size: 11px;
+  }
+  .welcome-conference-content {
+    margin-top: 20px;
+  }
+  .welcome-conference-content h1 {
+    font-size: 37px;
+    letter-spacing: -1.7px;
+    margin-top: 13px;
+  }
+  .welcome-eyebrow {
+    font-size: 11px;
+    letter-spacing: 1.4px;
+  }
+  .welcome-intro {
+    font-size: 12px;
+    margin-top: 17px;
+  }
+  .welcome-event-card {
+    margin-top: 23px;
+    padding: 16px 14px;
+    gap: 11px;
+  }
+  .welcome-event-card h2 {
+    font-size: 14px;
+  }
+  .welcome-event-card p {
+    font-size: 11px;
+    gap: 6px;
+    flex-direction: column;
+    align-items: start;
+  }
+  .welcome-event-selected {
+    font-size: 11px;
+  }
+  .welcome-intention {
+    margin-top: 12px;
+    margin-bottom: 20px;
+  }
+  .welcome-intention summary {
+    padding: 13px 14px;
+    min-height: 68px;
+  }
+  .welcome-intention summary strong {
+    font-size: 11px;
+  }
+  .welcome-choice {
+    font-size: 11px;
+  }
+  .welcome-intention-edit textarea {
+    font-size: 16px;
+  }
+}

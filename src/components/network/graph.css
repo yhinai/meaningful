@@ -1,0 +1,109 @@
+/* Conference canvas: the same event-driven graph with a more human center. */
+.conference-mode .mm-person-node {
+  animation: conference-node-appear 0.55s ease-out both;
+}
+.conference-mode .mm-person-node strong {
+  font-size: 14px;
+  letter-spacing: -0.2px;
+  color: #52525c;
+}
+.conference-mode .mm-node-role {
+  font-size: 8px;
+  color: #9999a1;
+  max-width: 110px;
+}
+.conference-mode .mm-graph-avatar {
+  height: 55px;
+  width: 55px;
+  background: #ececef;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 11px #1d1d1f09;
+}
+.conference-mode .mm-avatar-ring {
+  padding: 3px;
+  margin-bottom: 5px;
+}
+.conference-mode .mm-self-node .mm-graph-avatar {
+  height: 104px;
+  width: 104px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+.conference-mode .mm-self-node .mm-avatar-ring {
+  padding: 0;
+  margin: 0 auto 6px;
+  border: 0;
+  background: transparent;
+}
+.conference-mode .mm-self-node {
+  width: 110px;
+  transform: translateX(-5px);
+}
+.conference-mode .mm-self-node strong {
+  font-size: 15px;
+  color: #777267;
+}
+.conference-mode .mm-self-node .mm-node-role {
+  font-size: 8px;
+  color: #aaa59a;
+}
+.conference-mode .mm-orbits i {
+  width: 35%;
+  border-color: #efefed;
+}
+.conference-mode .mm-orbits i:nth-child(2) {
+  width: 66%;
+  border-style: dashed;
+  border-color: #f0f0ee;
+}
+.conference-mode .mm-orbits i:nth-child(3) {
+  width: 94%;
+  border-color: #f6f6f4;
+}
+.conference-mode .react-flow__background {
+  opacity: 0.24;
+}
+.conference-mode .react-flow__edge.animated path {
+  animation-duration: 2.5s;
+}
+.conference-mode .react-flow__attribution {
+  font-size: 6px;
+  color: #babac0;
+  background: #ffffffbf;
+}
+.conference-mode .mm-person-node.is-rejected {
+  opacity: 0.66;
+}
+.conference-mode .mm-person-node.is-talking .mm-avatar-ring {
+  animation: mm-ring-breathe 3s ease-in-out infinite;
+}
+@keyframes conference-node-appear {
+  from {
+    opacity: 0;
+    translate: 0 7px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .conference-mode .mm-person-node {
+    animation: none;
+  }
+  .conference-mode .mm-person-node.is-talking .mm-avatar-ring {
+    animation: none;
+  }
+}
+.conference-mode .react-flow__node-person {
+  width: 115px;
+}
+.conference-mode .mm-person-node {
+  width: 115px;
+  min-height: 110px;
+}
+.conference-mode .mm-self-node {
+  transform: none;
+}

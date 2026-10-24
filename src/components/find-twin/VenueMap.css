@@ -1,0 +1,458 @@
+.ft-venue-map {
+  position: relative;
+  background: #fff;
+  height: 100%;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 19px;
+}
+.ft-map-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 25px 27px 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.ft-map-topline > span:first-child {
+  font-size: 13px;
+  font-weight: 550;
+  color: #51514e;
+  letter-spacing: -0.2px;
+  display: block;
+}
+.ft-map-topline small {
+  display: block;
+  font-size: 11px;
+  margin-top: 6px;
+  font-weight: 400;
+  color: #93938e;
+  letter-spacing: 0;
+}
+.ft-map-building {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #b5aa8c;
+  vertical-align: middle;
+  margin: 0 5px 2px 0;
+}
+.ft-map-floor {
+  font-size: 11px;
+  color: #94948f;
+  border: 1px solid #eeeee9;
+  border-radius: 6px;
+  padding: 7px 9px;
+  background: #fff;
+}
+.ft-map-viewport {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  flex: 1;
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+  isolation: isolate;
+}
+.ft-map-viewport.is-panning {
+  cursor: grabbing;
+}
+.ft-map-center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.ft-map-scene {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  flex-shrink: 0;
+  pointer-events: auto;
+  transform-origin: center;
+}
+.ft-map-base {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+.ft-map-route {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.ft-landmark {
+  position: absolute;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+}
+.ft-landmark button {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  padding: 0;
+  border-radius: 50%;
+}
+.ft-landmark-disc {
+  display: grid;
+  place-items: center;
+  height: 32px;
+  width: 32px;
+  border: 1px solid #e1dfd6;
+  background: #fff;
+  color: #8e8875;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px #33332a07;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+}
+.ft-landmark-label {
+  position: absolute;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: -0.15px;
+  color: #72736c;
+  background: #ffffffed;
+  border-radius: 5px;
+  padding: 3px 5px;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.ft-landmark button:hover .ft-landmark-disc {
+  background: #f4f2eb;
+  border-color: #b9ae94;
+}
+.ft-landmark.is-destination {
+  z-index: 5;
+}
+.ft-landmark.is-destination .ft-landmark-disc {
+  width: 39px;
+  height: 39px;
+  background: #282a25;
+  border: 3px solid white;
+  color: #fff;
+  box-shadow:
+    0 3px 11px #20241c20,
+    0 0 0 1px #cecfbf;
+}
+.ft-landmark.is-destination .ft-landmark-label {
+  background: #282a25;
+  color: white;
+  font-size: 11px;
+  top: 43px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  box-shadow: 0 3px 9px #20241c12;
+}
+.ft-landmark.is-destination small {
+  position: absolute;
+  top: 70px;
+  white-space: nowrap;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #8d8e86;
+  background: #fff;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+.ft-person-pin {
+  position: absolute;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+  transform-origin: center;
+  min-width: 61px;
+  margin-left: -30px;
+}
+.ft-person-pin > button > span {
+  width: 26px;
+  height: 26px;
+  background: #727f8f;
+  color: #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 3px solid white;
+  box-shadow:
+    0 0 0 1px #d1d8df,
+    0 2px 7px #3332;
+}
+.ft-person-pin.counterpart > button > span {
+  background: #9b8b6b;
+  box-shadow:
+    0 0 0 1px #dcd3c0,
+    0 2px 7px #3332;
+}
+.ft-person-pin strong {
+  color: #657283;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 5px 1px;
+  background: white;
+  border-radius: 4px;
+}
+.ft-person-pin.counterpart strong {
+  color: #8c7a59;
+}
+.ft-person-pin small {
+  font-size: 11px;
+  color: #989a98;
+  background: white;
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+.ft-map-bottomline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 23px;
+  gap: 12px;
+  position: relative;
+  z-index: 3;
+  background: #fff;
+}
+.ft-map-bottomline > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #90938b;
+}
+.ft-map-bottomline i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.ft-map-key-destination {
+  background: #484c40;
+}
+.ft-map-key-zone {
+  background: #8c97a3;
+  margin-left: 8px;
+}
+.ft-map-controls {
+  display: flex;
+  border: 1px solid #eeeee9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 6px #33332a03;
+}
+.ft-map-controls button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: #777c6f;
+  background: white;
+  transition: background 0.2s;
+}
+.ft-map-controls button + button {
+  border-left: 1px solid #f0f0eb;
+}
+.ft-map-controls button:hover {
+  background: #f7f7f3;
+}
+.ft-map-controls button:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+.ft-map-zone-list {
+  margin: 15px 25px 0;
+  border-top: 1px solid #f0f0eb;
+}
+.ft-map-zone-list summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  min-height: 44px;
+  color: #90938b;
+  font-size: 11px;
+  list-style: none;
+}
+.ft-map-zone-list summary::-webkit-details-marker {
+  display: none;
+}
+.ft-map-zone-list[open] summary > svg {
+  transform: rotate(180deg);
+}
+.ft-map-zone-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.ft-map-zone-list li > button {
+  min-height: 64px;
+  width: 100%;
+  text-align: left;
+  padding: 11px;
+  background: #fbfbf8;
+  border: 1px solid #eeeeea;
+  border-radius: 8px;
+}
+.ft-map-zone-list strong {
+  display: block;
+  color: #63695b;
+  font-weight: 500;
+  font-size: 11px;
+}
+.ft-map-zone-list li span {
+  display: block;
+  color: #989d91;
+  line-height: 1.6;
+  margin-top: 5px;
+  font-size: 11px;
+}
+.ft-map-zone-list li small {
+  display: block;
+  color: #9b8b69;
+  margin-top: 7px;
+  font-size: 11px;
+}
+.ft-map-accuracy {
+  font-size: 11px;
+  color: #a1a49b;
+  text-align: center;
+  padding: 0 15px 18px;
+  line-height: 1.8;
+}
+.ft-map-unavailable {
+  padding: 55px 25px;
+  text-align: center;
+  color: #8f9588;
+  font-size: 13px;
+  line-height: 1.8;
+}
+@media (max-width: 700px) {
+  .ft-venue-map {
+    min-height: 465px;
+    border-radius: 15px;
+  }
+  .ft-map-topline {
+    padding: 18px 17px 0;
+  }
+  .ft-map-topline > span:first-child {
+    font-size: 12px;
+  }
+  .ft-map-topline small {
+    font-size: 11px;
+  }
+  .ft-map-floor {
+    font-size: 11px;
+    padding: 6px 7px;
+  }
+  .ft-map-viewport {
+    min-height: 335px;
+  }
+  .ft-map-bottomline {
+    padding: 0 15px;
+  }
+  .ft-map-controls button {
+    height: 44px;
+    width: 44px;
+  }
+  .ft-map-bottomline > span {
+    font-size: 11px;
+  }
+  .ft-landmark-label {
+    font-size: 11px;
+  }
+  .ft-landmark-disc {
+    width: 27px;
+    height: 27px;
+  }
+  .ft-landmark-disc > svg {
+    width: 13px;
+  }
+  .ft-landmark.is-destination .ft-landmark-label {
+    font-size: 11px;
+  }
+  .ft-landmark.is-destination .ft-landmark-disc {
+    width: 34px;
+    height: 34px;
+  }
+  .ft-map-zone-list {
+    margin: 10px 17px 0;
+  }
+  .ft-map-zone-list ul {
+    grid-template-columns: 1fr;
+  }
+  .ft-map-accuracy {
+    font-size: 11px;
+    padding-bottom: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ft-landmark-disc,
+  .ft-map-controls button {
+    transition: none;
+  }
+}
+
+.ft-person-pin > button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 52px;
+  min-height: 52px;
+  background: none;
+  border-radius: 8px;
+  padding: 0;
+}
+.ft-person-pin.is-expanded {
+  z-index: 10;
+}
+.ft-pin-details {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 190px;
+  border: 1px solid #e5e5df;
+  border-radius: 10px;
+  padding: 12px 13px;
+  background: #fff;
+  box-shadow: 0 6px 20px #20221b0e;
+  text-align: left;
+  color: #81867a;
+  font-size: 11px;
+  line-height: 1.7;
+  pointer-events: none;
+}
+.ft-pin-details b {
+  display: block;
+  font-weight: 550;
+  color: #545a4c;
+  font-size: 11px;
+}
+.ft-pin-details > span {
+  display: block;
+  margin-top: 4px;
+}

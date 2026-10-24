@@ -1,0 +1,386 @@
+@media (min-width: 1500px) {
+  .pres-problem-crowd {
+    min-height: 340px;
+  }
+  .pres-problem-crowd svg {
+    height: 245px;
+  }
+  .pres-problem-point p {
+    font-size: 16px;
+  }
+  .pres-problem-point h3 {
+    font-size: 21px;
+  }
+  .pres-problem-points {
+    gap: 34px;
+  }
+  .pres-story-lead {
+    font-size: 20px;
+  }
+  .pres-twin-phones {
+    transform: scale(1.1);
+  }
+  .pres-magazine-spread {
+    max-width: 1050px;
+  }
+  .pres-mag-page {
+    padding: 28px 33px;
+  }
+  .pres-mag-art {
+    height: 180px;
+  }
+  .pres-mag-cover h3 {
+    font-size: 38px;
+  }
+  .pres-mag-cover h3 em {
+    font-size: 32px;
+  }
+  .pres-mag-cover-foot p {
+    font-size: 10px;
+  }
+  .pres-mag-editorial-copy {
+    font-size: 11px;
+  }
+  .pres-mag-idea {
+    font-size: 29px;
+  }
+  .pres-mag-next p {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .pres-twin-phones {
+    transform: scale(0.85);
+    transform-origin: center;
+    min-width: 450px;
+    margin-left: -50px;
+  }
+  .pres-train-slide {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .pres-train-slide .pres-story-heading h2,
+  .pres-meet-slide .pres-story-heading h2 {
+    font-size: 42px;
+  }
+  .pres-meet-visual {
+    transform: scale(0.88);
+    transform-origin: center left;
+  }
+  .pres-meet-slide {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .pres-problem-layout {
+    gap: 35px;
+  }
+  .pres-xp-card {
+    left: 55%;
+  }
+  .pres-perk-card {
+    left: 46%;
+  }
+  .pres-magazine-spread {
+    width: 95%;
+  }
+  .pres-magazine-top > p {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 767px) {
+  .pres-story {
+    padding: 5px 0 24px;
+  }
+  .pres-story-heading h2 {
+    font-size: 38px;
+    letter-spacing: -1.7px;
+    line-height: 1.1;
+    margin-top: 15px;
+  }
+  .pres-story-heading h2 em {
+    letter-spacing: -1.4px;
+  }
+  .pres-story-eyebrow {
+    font-size: 8px;
+    letter-spacing: 1.8px;
+  }
+  .pres-problem-layout {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-top: 25px;
+  }
+  .pres-problem-crowd {
+    min-height: 210px;
+    padding: 19px;
+  }
+  .pres-problem-crowd svg {
+    height: 148px;
+  }
+  .pres-crowd-caption strong {
+    font-size: 25px;
+  }
+  .pres-crowd-caption > span {
+    font-size: 6px;
+  }
+  .pres-problem-points {
+    gap: 18px;
+  }
+  .pres-point-icon {
+    width: 35px;
+    height: 35px;
+  }
+  .pres-problem-point {
+    gap: 13px;
+  }
+  .pres-small-number {
+    display: none;
+  }
+  .pres-problem-point h3 {
+    font-size: 16px;
+    margin: 0 0 5px;
+  }
+  .pres-problem-point p {
+    font-size: 12px;
+  }
+  .pres-story-bottom {
+    font-size: 11px;
+    margin-top: 25px;
+    line-height: 1.7;
+  }
+  .pres-story-bottom strong {
+    display: block;
+  }
+  .pres-train-slide,
+  .pres-meet-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+  .pres-train-slide .pres-story-heading h2,
+  .pres-meet-slide .pres-story-heading h2 {
+    font-size: 38px;
+  }
+  .pres-story-lead {
+    font-size: 14px;
+    margin-top: 19px;
+  }
+  .pres-training-tabs {
+    display: flex;
+    margin-top: 23px;
+    gap: 7px;
+    max-width: none;
+  }
+  .pres-training-tabs button {
+    flex: 1;
+    padding: 10px 8px;
+    gap: 7px;
+    border-color: #eae7e2;
+    align-items: flex-start;
+  }
+  .pres-training-tabs button > span {
+    min-width: 22px;
+    height: 22px;
+    font-size: 8px;
+  }
+  .pres-training-tabs strong {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+  .pres-training-tabs small,
+  .pres-training-tabs button > svg {
+    display: none;
+  }
+  .pres-privacy-note {
+    font-size: 9px;
+    margin: 15px 0 0 2px;
+  }
+  .pres-privacy-note br {
+    display: none;
+  }
+  .pres-twin-phones {
+    transform: none;
+    min-width: 0;
+    height: 510px;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+  }
+  .pres-twin-phones .pres-phone-profile,
+  .pres-twin-phones .pres-phone-goal {
+    display: none;
+    transform: none;
+  }
+  .pres-step-0 .pres-phone-profile,
+  .pres-step-1 .pres-phone-goal {
+    display: block;
+    animation: pres-mobile-phone 0.45s ease both;
+  }
+  .pres-twin-phones .pres-phone {
+    width: 250px;
+    transform: rotate(-3deg);
+  }
+  .pres-phone-floating-note {
+    bottom: 0;
+  }
+  .pres-phone-content {
+    min-height: 409px;
+  }
+  .pres-meeting-steps {
+    gap: 15px;
+    margin: 24px 0 21px;
+  }
+  .pres-meeting-steps strong {
+    font-size: 13px;
+  }
+  .pres-meeting-steps small {
+    font-size: 10px;
+  }
+  .pres-meet-visual {
+    transform: none;
+    min-height: 530px;
+    justify-content: center;
+    padding: 0;
+    margin-top: 10px;
+  }
+  .pres-meet-visual > .pres-phone {
+    width: 225px;
+    transform: rotate(-4deg) translateX(-24px);
+  }
+  .pres-meet-aura {
+    width: 300px;
+    height: 300px;
+    left: calc(50% - 150px);
+    top: 15%;
+  }
+  .pres-xp-card {
+    width: 140px;
+    left: auto;
+    right: -5px;
+    top: 12%;
+    padding: 15px;
+    transform: rotate(4deg);
+  }
+  .pres-xp-symbol {
+    width: 33px;
+    height: 33px;
+    margin-bottom: 10px;
+  }
+  .pres-xp-card > span:nth-child(2) {
+    font-size: 5px;
+    letter-spacing: 0.8px;
+  }
+  .pres-xp-card > strong {
+    font-size: 31px;
+  }
+  .pres-xp-card > small {
+    font-size: 7px;
+  }
+  .pres-perk-card {
+    left: auto;
+    right: -3px;
+    bottom: 25px;
+    width: 204px;
+    padding: 14px 16px;
+  }
+  .pres-magazine-top {
+    display: block;
+  }
+  .pres-magazine-top .pres-story-heading h2 {
+    font-size: 36px;
+  }
+  .pres-magazine-top > p {
+    font-size: 12px;
+    margin-top: 18px;
+  }
+  .pres-magazine-top .pres-synthetic-label {
+    font-size: 8px;
+  }
+  .pres-magazine-spread {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    transform: rotate(-1deg);
+    margin-top: 24px;
+  }
+  .pres-mag-page {
+    min-height: 350px;
+    padding: 24px 25px;
+  }
+  .pres-mag-cover {
+    border-right: 0;
+    border-bottom: 1px solid #dad7d2;
+    background: #fbf8f3;
+  }
+  .pres-mag-inside {
+    background: #fcfbf6;
+  }
+  .pres-mag-art {
+    height: 180px;
+  }
+  .pres-mag-cover h3 {
+    font-size: 36px;
+  }
+  .pres-mag-cover h3 em {
+    font-size: 29px;
+  }
+  .pres-mag-cover-foot p {
+    font-size: 9px;
+  }
+  .pres-mag-masthead {
+    font-size: 6px;
+  }
+  .pres-mag-editorial-copy {
+    font-size: 11px;
+  }
+  .pres-mag-next p {
+    font-size: 10px;
+  }
+  .pres-mag-kicker {
+    font-size: 7px;
+  }
+  .pres-mag-page-footer {
+    font-size: 6px;
+  }
+  .pres-magazine-credit {
+    gap: 13px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+  .pres-magazine-credit > span {
+    font-size: 8px;
+  }
+  .pres-magazine-credit > span:last-child {
+    font-size: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pres-draw-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .pres-phone-profile,
+  .pres-phone-goal,
+  .pres-training-tabs button {
+    transition: none;
+  }
+  .pres-step-0 .pres-phone-profile,
+  .pres-step-1 .pres-phone-goal {
+    animation: none;
+  }
+}
+
+@keyframes pres-mobile-phone {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

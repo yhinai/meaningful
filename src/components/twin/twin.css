@@ -1,0 +1,548 @@
+.twin-page {
+  max-width: 1080px;
+  margin: auto;
+  padding: 16px 0 48px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  color: #1d1d1f;
+  background: #fff;
+}
+.twin-page h1 {
+  margin: 12px 0;
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 600;
+  letter-spacing: -1.8px;
+  line-height: 1.12;
+}
+.twin-page .twin-subtitle {
+  max-width: 540px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #6e6e73;
+}
+.twin-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.twin-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6e6e73;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+.twin-grid {
+  display: grid;
+  grid-template-columns: 1fr 310px;
+  gap: 32px;
+  align-items: start;
+}
+.twin-card {
+  background: #fff;
+  border: 1px solid #e8e8ed;
+  border-radius: 20px;
+  padding: 30px;
+}
+.twin-card h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+.twin-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #6e6e73;
+}
+.twin-steps {
+  display: flex;
+  gap: 22px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+.twin-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 13px;
+  color: #6e6e73;
+}
+.twin-step span {
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #e8e8ed;
+  border-radius: 50%;
+  font-size: 12px;
+}
+.twin-step.active {
+  color: #1d1d1f;
+  font-weight: 500;
+}
+.twin-step.active span {
+  color: #fff;
+  background: #1d1d1f;
+  border-color: #1d1d1f;
+}
+.twin-form {
+  display: grid;
+  gap: 24px;
+  margin-top: 28px;
+}
+.twin-field {
+  display: grid;
+  gap: 9px;
+}
+.twin-field label {
+  color: #424245;
+  font-size: 13px;
+  font-weight: 500;
+}
+.twin-field input,
+.twin-field textarea,
+.twin-field select {
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 14px;
+  font: inherit;
+  font-size: 15px;
+  color: #1d1d1f;
+  background: #fff;
+  border: 1px solid #d9d9de;
+  border-radius: 10px;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.twin-field textarea {
+  min-height: 110px;
+  resize: vertical;
+  line-height: 1.6;
+}
+.twin-field input:focus,
+.twin-field textarea:focus,
+.twin-field select:focus {
+  border-color: #86868b;
+  box-shadow: 0 0 0 3px #1d1d1f0c;
+}
+.twin-field small {
+  color: #6e6e73;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.twin-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.twin-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+}
+.twin-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 12px 18px;
+  border: 1px solid #e8e8ed;
+  border-radius: 11px;
+  background: #fff;
+  color: #424245;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.twin-button:hover {
+  background: #f5f5f7;
+}
+.twin-button.primary {
+  color: #fff;
+  background: #1d1d1f;
+  border-color: #1d1d1f;
+}
+.twin-button.primary:hover {
+  background: #333336;
+}
+.twin-button.text {
+  padding-left: 0;
+  padding-right: 0;
+  border-color: transparent;
+  background: transparent;
+}
+.twin-button.text:hover {
+  color: #000;
+  text-decoration: underline;
+}
+.twin-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.twin-button:focus-visible,
+.twin-toggle:focus-visible,
+.twin-chip:focus-visible,
+.twin-chat-compose button:focus-visible {
+  outline: 3px solid #0071e3;
+  outline-offset: 3px;
+}
+.twin-preview {
+  position: sticky;
+  top: 24px;
+  text-align: center;
+  padding: 28px 24px;
+  border-color: transparent;
+}
+.twin-avatar {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin: 28px auto 20px;
+  border-radius: 50%;
+  background: #f5f5f7;
+  color: #6e6e73;
+  font-size: 25px;
+  font-weight: 500;
+}
+.twin-preview h3 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+.twin-preview .twin-role {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #6e6e73;
+}
+.twin-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+.twin-preview .twin-chips {
+  justify-content: center;
+}
+.twin-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: #f5f5f7;
+  color: #6e6e73;
+  font-size: 13px;
+}
+.twin-chip.selectable {
+  min-height: 44px;
+  padding: 10px 14px;
+  border-color: #e8e8ed;
+  background: #fff;
+  color: #424245;
+  font-size: 14px;
+  cursor: pointer;
+}
+.twin-chip.selectable:hover {
+  background: #f5f5f7;
+}
+.twin-chip.selected {
+  border-color: #1d1d1f;
+  color: #1d1d1f;
+  background: #f5f5f7;
+}
+.twin-preview-divider {
+  height: 1px;
+  margin: 24px 0;
+  background: #e8e8ed;
+}
+.twin-preview-foot {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  font-size: 13px !important;
+}
+.twin-preview-foot svg {
+  flex: none;
+  margin-top: 3px;
+}
+.twin-alert {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 16px 0;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #f5f5f7;
+  color: #424245;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.twin-alert.error {
+  background: #fff2f1;
+  color: #9b3430;
+}
+.twin-alert.success {
+  background: #f0f7f1;
+  color: #3c6b46;
+}
+.twin-switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #eeeef0;
+}
+.twin-switch-row:last-child {
+  border-bottom: 0;
+}
+.twin-switch-row strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+}
+.twin-switch-row p {
+  max-width: 370px;
+  margin: 6px 0 0;
+  font-size: 13px;
+}
+.twin-toggle {
+  position: relative;
+  flex: none;
+  width: 46px;
+  height: 44px;
+  padding: 0 3px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.twin-toggle:before {
+  content: "";
+  position: absolute;
+  inset: 9px 0 10px;
+  background: #d2d2d7;
+  border-radius: 20px;
+  transition: background 0.25s;
+}
+.twin-toggle.on:before {
+  background: #1d1d1f;
+}
+.twin-toggle span {
+  position: relative;
+  display: block;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px #0002;
+  transition: transform 0.25s;
+}
+.twin-toggle.on span {
+  transform: translateX(21px);
+}
+.twin-note {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 18px 0;
+  color: #6e6e73;
+}
+.twin-note p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.twin-note svg {
+  flex: none;
+  margin-top: 3px;
+}
+.twin-chat {
+  max-width: 760px;
+  margin: 0 auto;
+  border: 0;
+  padding: 20px 0;
+}
+.twin-chat-bubble {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 28px 0;
+}
+.twin-chat-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: #f5f5f7;
+  color: #424245;
+}
+.twin-chat-copy {
+  max-width: 560px;
+  padding: 16px 20px;
+  border-radius: 0 17px 17px;
+  background: #f5f5f7;
+  color: #424245;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.twin-chat-bubble.user {
+  justify-content: flex-end;
+}
+.twin-chat-bubble.user .twin-chat-copy {
+  background: #1d1d1f;
+  color: #fff;
+  border-radius: 17px 0 17px 17px;
+}
+.twin-chat .twin-field {
+  margin-top: 25px;
+}
+.twin-goal-context {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  color: #6e6e73;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.twin-chat-compose {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 7px;
+  border: 1px solid #d9d9de;
+  border-radius: 15px;
+  background: #fff;
+}
+.twin-chat-compose:focus-within {
+  border-color: #86868b;
+  box-shadow: 0 0 0 3px #1d1d1f0c;
+}
+.twin-chat-compose input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  padding: 10px;
+  font: inherit;
+  font-size: 15px;
+  background: transparent;
+}
+.twin-chat-compose button {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: #1d1d1f;
+  color: #fff;
+  cursor: pointer;
+}
+.twin-chat-compose button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.twin-privacy-list {
+  max-width: 760px;
+}
+.twin-loading {
+  padding: 60px;
+  text-align: center;
+  color: #6e6e73;
+  font-size: 14px;
+}
+.twin-saving {
+  animation: twin-spin 1.2s linear infinite;
+}
+@keyframes twin-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 850px) {
+  .twin-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .twin-preview {
+    position: static;
+  }
+  .twin-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .twin-card {
+    padding: 24px;
+  }
+  .twin-preview {
+    padding: 24px 12px;
+    border-top: 1px solid #e8e8ed;
+    border-radius: 0;
+  }
+  .twin-preview .twin-avatar {
+    margin-top: 20px;
+  }
+  .twin-field-row {
+    grid-template-columns: 1fr;
+  }
+  .twin-steps {
+    gap: 14px;
+  }
+  .twin-step {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .twin-step span {
+    flex: none;
+    width: 23px;
+    height: 23px;
+  }
+  .twin-page h1 {
+    letter-spacing: -1.2px;
+  }
+  .twin-chat {
+    padding: 8px 0;
+  }
+  .twin-chat-copy {
+    padding: 15px 17px;
+  }
+  .twin-actions {
+    flex-wrap: wrap;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .twin-page * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760" role="img" aria-labelledby="title desc">
+  <title id="title">Demo Venue Map — The Atrium</title>
+  <desc id="desc">Fictional ground floor. Entrance at the south, a central hallway connecting Registration, Main Stage, Sponsor Booths, Quiet Corner, and Coffee Bar. Openings in room walls follow the configured walkways.</desc>
+  <defs>
+    <filter id="roomShadow" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#2e3029" flood-opacity=".035"/></filter>
+    <pattern id="tiles" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#f1f0ed" stroke-width=".8"/></pattern>
+    <linearGradient id="lounge" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f6f5ef"/><stop offset="1" stop-color="#fafaf7"/></linearGradient>
+    <g id="chair"><rect width="18" height="15" rx="5" fill="#e2dfd5"/><path d="M3 12h12" stroke="#d8d4c7" stroke-width="2"/></g>
+    <g id="plant"><circle r="14" fill="#e7eadd"/><path d="M-7 0Q-5-11 1-4Q9-11 8-2Q12 5 3 5Q0 12-5 4Q-12 5-7 0" fill="#c6cfb8"/><circle r="3" fill="#d4c9af"/></g>
+    <g id="cafeTable"><circle r="18" fill="#efede6" stroke="#e3dfd4"/><circle r="3" fill="#d1c9b7"/><rect x="-6" y="-32" width="12" height="9" rx="4" fill="#e2dfd4"/><rect x="-6" y="23" width="12" height="9" rx="4" fill="#e2dfd4"/></g>
+  </defs>
+  <rect width="1000" height="760" fill="#fcfcfa"/>
+  <rect x="55" y="35" width="890" height="690" rx="30" fill="#fff" stroke="#e8e7e2" stroke-width="2"/>
+  <rect x="68" y="48" width="864" height="664" rx="21" fill="url(#tiles)"/>
+  <path d="M445 713V400H70V320H445V52H565V320H932V400H565V713Z" fill="#fafaf7"/>
+  <g filter="url(#roomShadow)">
+    <rect x="80" y="70" width="350" height="220" rx="15" fill="#f6f5f0"/>
+    <rect x="590" y="70" width="330" height="220" rx="15" fill="#f6f7f3"/>
+    <rect x="80" y="425" width="330" height="205" rx="15" fill="url(#lounge)"/>
+    <rect x="590" y="425" width="330" height="205" rx="15" fill="#f7f5ef"/>
+  </g>
+  <g stroke="#deddd6" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <path d="M245 290H95q-15 0-15-15V85q0-15 15-15h320q15 0 15 15v190q0 15-15 15H295"/>
+    <path d="M735 290H605q-15 0-15-15V85q0-15 15-15h300q15 0 15 15v190q0 15-15 15H785"/>
+    <path d="M225 425H95q-15 0-15 15v175q0 15 15 15h300q15 0 15-15V440q0-15-15-15H275"/>
+    <path d="M735 425H605q-15 0-15 15v175q0 15 15 15h300q15 0 15-15V440q0-15-15-15H785"/>
+  </g>
+  <g stroke="#d5d2c7" stroke-width="1.4" fill="none" opacity=".8">
+    <path d="M245 290v-28m0 0q28 0 28 28M735 290v-28m0 0q28 0 28 28M225 425v28m0 0q28 0 28-28M735 425v28m0 0q28 0 28-28"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" fill="#a1a298" font-size="10" letter-spacing="2">
+    <text x="106" y="99">AUDITORIUM</text><text x="615" y="99">EXHIBITION HALL</text>
+    <text x="105" y="455">LOUNGE</text><text x="615" y="455">CAFÉ</text>
+    <text x="500" y="320" text-anchor="middle" font-size="9" fill="#b1b2aa">CENTRAL HALL</text>
+    <text x="500" y="635" text-anchor="middle" font-size="9" fill="#b1b2aa">ATRIUM WALKWAY</text>
+  </g>
+  <rect x="188" y="111" width="137" height="23" rx="7" fill="#ded8c8"/>
+  <path d="M198 132h117" stroke="#d3cbb7" stroke-width="3"/>
+  <g opacity=".9">
+    <use href="#chair" x="135" y="154"/><use href="#chair" x="168" y="154"/><use href="#chair" x="201" y="154"/><use href="#chair" x="234" y="154"/><use href="#chair" x="267" y="154"/><use href="#chair" x="300" y="154"/><use href="#chair" x="333" y="154"/>
+    <use href="#chair" x="135" y="187"/><use href="#chair" x="168" y="187"/><use href="#chair" x="201" y="187"/><use href="#chair" x="234" y="187"/><use href="#chair" x="267" y="187"/><use href="#chair" x="300" y="187"/><use href="#chair" x="333" y="187"/>
+  </g>
+  <g fill="#eeeee6" stroke="#dedfd3" stroke-width="1.2">
+    <rect x="620" y="125" width="70" height="42" rx="7"/><rect x="720" y="125" width="70" height="42" rx="7"/><rect x="820" y="125" width="70" height="42" rx="7"/>
+    <rect x="620" y="187" width="70" height="32" rx="7"/><rect x="820" y="187" width="70" height="32" rx="7"/>
+  </g>
+  <g fill="#dbdfcf"><rect x="630" y="132" width="49" height="6" rx="3"/><rect x="730" y="132" width="49" height="6" rx="3"/><rect x="830" y="132" width="49" height="6" rx="3"/></g>
+  <rect x="96" y="322" width="89" height="15" rx="5" fill="#e8e4d8" stroke="#ded9cb"/>
+  <g fill="#dfdacd"><circle cx="110" cy="314" r="4"/><circle cx="143" cy="314" r="4"/><circle cx="175" cy="314" r="4"/></g>
+  <g fill="#e5e2d6" stroke="#d9d4c5" stroke-width="1.2">
+    <rect x="108" y="481" width="52" height="73" rx="13"/><rect x="108" y="561" width="52" height="36" rx="10"/>
+    <rect x="323" y="482" width="54" height="95" rx="13"/>
+  </g>
+  <g fill="#f0eee6" stroke="#dfdbce"><rect x="180" y="479" width="25" height="36" rx="8"/><rect x="278" y="485" width="24" height="31" rx="8"/></g>
+  <rect x="635" y="445" width="238" height="32" rx="10" fill="#e5dfcf" stroke="#d9d1be"/>
+  <path d="M647 450h214" stroke="#f8f5ee" stroke-width="2"/>
+  <g fill="#c6beaa"><rect x="652" y="452" width="25" height="18" rx="4"/><circle cx="699" cy="459" r="4"/><circle cx="714" cy="459" r="4"/><rect x="834" y="453" width="20" height="15" rx="3"/></g>
+  <g fill="#e2ddcf"><circle cx="658" cy="491" r="6"/><circle cx="687" cy="491" r="6"/><circle cx="829" cy="491" r="6"/><circle cx="858" cy="491" r="6"/></g>
+  <use href="#cafeTable" x="650" y="564"/><use href="#cafeTable" x="867" y="564"/>
+  <use href="#plant" x="105" y="266"/><use href="#plant" x="406" y="103"/><use href="#plant" x="893" y="265"/>
+  <use href="#plant" x="106" y="608"/><use href="#plant" x="387" y="608"/><use href="#plant" x="893" y="608"/>
+  <use href="#plant" x="458" y="460"/><use href="#plant" x="542" y="550"/>
+  <path d="M447 665h35m36 0h35M447 709h106" stroke="#e1dfd7" stroke-width="3" stroke-linecap="round"/>
+  <g stroke="#efeee9" stroke-width="2"><path d="M456 80v190M554 80v190M456 410v205M554 410v205"/></g>
+  <text x="73" y="747" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="9" fill="#b8b8ae" letter-spacing="1.4">FICTIONAL FLOOR PLAN · NOT TO SCALE</text>
+</svg>

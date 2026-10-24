@@ -1,0 +1,898 @@
+@import "./find-twin-details.css";
+
+.ft-screen {
+  --ft-ink: #252529;
+  --ft-muted: #86868d;
+  --ft-gold: #a58d60;
+  padding-bottom: 10px;
+}
+.ft-page-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: -10px 0 26px;
+}
+.ft-page-top > a {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 44px;
+  color: #7b7b83;
+  font-size: 12px;
+}
+.ft-page-top > span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: #9b9ba1;
+  font-size: 11px;
+}
+.ft-page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 29px;
+  gap: 20px;
+}
+.ft-kicker {
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  font-weight: 500;
+  color: #96949a;
+}
+.ft-page-heading h1 {
+  font-size: 41px;
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -1.8px;
+  margin-top: 10px;
+}
+.ft-page-heading p {
+  color: #8d8d94;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 12px;
+  letter-spacing: -0.15px;
+}
+.ft-header-label {
+  color: #9c9ba0;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding-bottom: 7px;
+}
+.ft-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(325px, 1fr);
+  align-items: start;
+  gap: 27px;
+}
+.ft-map-panel {
+  min-width: 0;
+  border: 1px solid #eeedf0;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+}
+.ft-map-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 26px 19px;
+  gap: 10px;
+}
+.ft-map-heading h2 {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+}
+.ft-map-heading p {
+  font-size: 11px;
+  color: #98979e;
+  margin-top: 6px;
+}
+.ft-map-heading p > span {
+  padding: 0 5px;
+  color: #bebdc1;
+}
+.ft-floor-pill {
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid #efedf0;
+  border-radius: 6px;
+  color: #929197;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.ft-map-frame {
+  height: 530px;
+  min-width: 0;
+}
+.ft-map-frame > div {
+  height: 100%;
+}
+.ft-map-caption {
+  min-height: 52px;
+  border-top: 1px solid #f0eef1;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #98969c;
+  font-size: 11px;
+}
+.ft-meeting-sheet {
+  position: relative;
+  background: #fff;
+  border: 1px solid #eae9ed;
+  border-radius: 22px;
+  overflow: hidden;
+  padding: 25px;
+  box-shadow: 0 7px 26px #25252b03;
+}
+.ft-sheet-handle {
+  display: none;
+}
+.ft-person {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #efedf0;
+}
+.ft-person-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: #efeee8;
+  color: #8d8876;
+  display: grid;
+  place-items: center;
+  position: relative;
+  flex-shrink: 0;
+}
+.ft-person-avatar img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  z-index: 1;
+}
+.ft-person-avatar > span {
+  font-size: 14px;
+}
+.ft-person-avatar i {
+  display: grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  border: 3px solid white;
+  border-radius: 50%;
+  background: #87957f;
+  color: #fff;
+  bottom: -1px;
+  right: -1px;
+  position: absolute;
+  z-index: 2;
+}
+.ft-person > div:last-child > span {
+  font-size: 11px;
+  letter-spacing: 1.3px;
+  color: #a19ca0;
+}
+.ft-person h2 {
+  font-size: 18px;
+  font-weight: 550;
+  letter-spacing: -0.6px;
+  margin-top: 6px;
+}
+.ft-person p {
+  font-size: 11px;
+  color: #929098;
+  margin-top: 5px;
+}
+.ft-sheet-main {
+  overflow: hidden;
+}
+.ft-state-heading {
+  padding-top: 24px;
+}
+.ft-state-icon {
+  display: grid;
+  place-items: center;
+  height: 35px;
+  width: 35px;
+  background: #f6f5f2;
+  border-radius: 10px;
+  color: #a38c61;
+  margin-bottom: 15px;
+}
+.ft-state-heading h3 {
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: 550;
+  letter-spacing: -0.9px;
+}
+.ft-state-heading > p {
+  color: #939098;
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 12px;
+}
+.ft-primary-action {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 26px;
+  padding: 11px 19px;
+  background: #232326;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  font-size: 12px;
+  font-weight: 450;
+  transition:
+    transform 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+  margin-top: 25px;
+  text-align: center;
+  line-height: 1.6;
+}
+.ft-primary-action:hover {
+  background: #3a3a3e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px #17171b0a;
+}
+.ft-primary-action:active {
+  transform: scale(0.985);
+}
+.ft-primary-action:disabled {
+  cursor: default;
+  opacity: 0.48;
+  transform: none;
+  box-shadow: none;
+}
+.ft-quiet-action {
+  width: 100%;
+  min-height: 44px;
+  background: transparent;
+  color: #8f8b95;
+  font-size: 11px;
+  padding: 10px 14px;
+}
+.ft-quiet-action:hover {
+  color: #353238;
+}
+.ft-sheet-details {
+  border-top: 1px solid #f0edf1;
+  margin-top: 11px;
+}
+.ft-counterpart-status {
+  padding: 19px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #9c96a0;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.ft-counterpart-status > svg {
+  margin-top: 1px;
+}
+.ft-counterpart-status small {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #aaa6ad;
+}
+.ft-counterpart-status.arrived {
+  color: #7b8e70;
+}
+.ft-check-in {
+  border-top: 1px solid #f0edf1;
+}
+.ft-disclosure {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  background: none;
+  color: #7d7682;
+  width: 100%;
+  padding: 5px 0;
+  gap: 7px;
+}
+.ft-disclosure > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+}
+.ft-disclosure small {
+  font-size: 11px;
+  color: #aaa2af;
+  margin-left: 1px;
+}
+.ft-checkin-options {
+  padding: 4px 0 17px;
+}
+.ft-checkin-options > label {
+  display: block;
+  font-size: 11px;
+  color: #82788a;
+  margin: 6px 0 9px;
+}
+.ft-checkin-options > select {
+  min-height: 44px;
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 12px;
+  border: 1px solid #e5e0e9;
+  border-radius: 9px;
+  color: #64576c;
+  background: white;
+}
+.ft-secondary-action {
+  min-height: 44px;
+  background: white;
+  width: 100%;
+  border: 1px solid #ded8e2;
+  border-radius: 22px;
+  margin-top: 13px;
+  padding: 10px 14px;
+  font-size: 11px;
+  color: #74637d;
+}
+.ft-secondary-action:hover {
+  background: #faf8fc;
+}
+.ft-checkin-options > p {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 11px;
+  color: #a19aa7;
+  line-height: 1.8;
+  margin-top: 13px;
+}
+.ft-checkin-options > p > svg {
+  margin-top: 2px;
+}
+.ft-checkin-active {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #897593;
+  line-height: 1.7;
+  padding: 0 0 16px;
+}
+.ft-checkin-active > span {
+  flex: 1;
+}
+.ft-checkin-active i {
+  width: 5px;
+  height: 5px;
+  display: inline-block;
+  border-radius: 50%;
+  background: #9c82aa;
+  margin-right: 5px;
+}
+.ft-checkin-active small {
+  display: block;
+  font-size: 11px;
+  color: #b09fba;
+  margin-top: 2px;
+}
+.ft-checkin-active button {
+  min-height: 44px;
+  color: #8b7398;
+  background: none;
+  font-size: 11px;
+}
+.ft-sheet-privacy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-top: 1px solid #f3f0f4;
+  padding-top: 17px;
+  margin-top: 0;
+  color: #aaa2ae;
+  font-size: 11px;
+  line-height: 1.7;
+}
+@media (min-width: 1450px) {
+  .ft-map-frame {
+    height: 590px;
+  }
+}
+@media (max-width: 1050px) {
+  .ft-workspace {
+    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 1fr);
+    gap: 20px;
+  }
+  .ft-meeting-sheet {
+    padding: 22px;
+  }
+  .ft-map-heading {
+    padding: 21px;
+  }
+  .ft-map-frame {
+    height: 520px;
+  }
+  .ft-map-heading h2 {
+    font-size: 13px;
+  }
+  .ft-floor-pill {
+    display: none;
+  }
+  .ft-page-heading h1 {
+    font-size: 38px;
+  }
+}
+@media (max-width: 800px) {
+  .ft-workspace {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .ft-map-frame {
+    height: 460px;
+  }
+  .ft-meeting-sheet {
+    padding: 25px;
+  }
+  .ft-sheet-details {
+    margin-top: 12px;
+  }
+  .ft-map-heading h2 {
+    font-size: 15px;
+  }
+  .ft-floor-pill {
+    display: flex;
+  }
+  .ft-loading {
+    grid-template-columns: 1fr;
+  }
+  .ft-loading > div:last-child {
+    min-height: 150px;
+  }
+}
+@media (max-width: 600px) {
+  .ft-screen {
+    padding-bottom: 0;
+  }
+  .ft-page-top {
+    margin: -14px 0 17px;
+  }
+  .ft-page-top > a {
+    font-size: 11px;
+  }
+  .ft-page-top > span {
+    font-size: 11px;
+  }
+  .ft-page-heading {
+    margin-bottom: 24px;
+  }
+  .ft-page-heading h1 {
+    font-size: 33px;
+    letter-spacing: -1.3px;
+    margin-top: 9px;
+  }
+  .ft-page-heading p {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .ft-header-label {
+    display: none;
+  }
+  .ft-kicker {
+    font-size: 11px;
+    letter-spacing: 1.3px;
+  }
+  .ft-workspace {
+    margin: 0 -23px;
+    gap: 0;
+  }
+  .ft-map-panel {
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .ft-map-heading {
+    padding: 19px 23px 8px;
+  }
+  .ft-map-heading h2 {
+    font-size: 13px;
+  }
+  .ft-map-heading p {
+    font-size: 11px;
+  }
+  .ft-floor-pill {
+    font-size: 11px;
+  }
+  .ft-map-frame {
+    height: 380px;
+  }
+  .ft-map-caption {
+    display: none;
+  }
+  .ft-meeting-sheet {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 23px 23px 0 0;
+    padding: 0 23px 23px;
+    box-shadow: 0 -7px 20px #3b2b3806;
+    margin-top: -10px;
+    z-index: 2;
+  }
+  .ft-sheet-handle {
+    display: flex;
+    width: 100%;
+    height: 25px;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+  }
+  .ft-sheet-handle > span {
+    width: 32px;
+    height: 3px;
+    background: #dfd9e1;
+    border-radius: 3px;
+  }
+  .ft-person {
+    padding-bottom: 20px;
+    gap: 12px;
+  }
+  .ft-person-avatar,
+  .ft-person-avatar img {
+    width: 49px;
+    height: 49px;
+  }
+  .ft-person h2 {
+    font-size: 17px;
+    margin-top: 5px;
+  }
+  .ft-person p {
+    font-size: 11px;
+  }
+  .ft-state-heading {
+    padding-top: 21px;
+  }
+  .ft-state-icon {
+    display: none;
+  }
+  .ft-state-heading h3 {
+    font-size: 25px;
+    letter-spacing: -0.8px;
+  }
+  .ft-state-heading > p {
+    font-size: 12px;
+    max-width: 310px;
+  }
+  .ft-primary-action {
+    font-size: 12px;
+    margin-top: 21px;
+  }
+  .ft-counterpart-status {
+    font-size: 11px;
+  }
+  .ft-counterpart-status small {
+    font-size: 11px;
+  }
+  .ft-demo-controls {
+    margin-top: 0;
+  }
+  .ft-demo-controls > div {
+    max-width: none;
+  }
+  .ft-sheet-privacy {
+    font-size: 11px;
+  }
+  .ft-error {
+    padding: 12px;
+    font-size: 11px;
+    align-items: start;
+  }
+  .ft-celebration {
+    padding-top: 16px;
+  }
+  .ft-celebration h2 {
+    font-size: 29px;
+  }
+  .ft-demo-reward strong {
+    font-size: 13px;
+  }
+  .ft-demo-reward p {
+    font-size: 11px;
+  }
+  .ft-spot-option {
+    min-height: 68px;
+  }
+  .ft-spot-option small {
+    font-size: 11px;
+  }
+  .ft-disclosure {
+    min-height: 54px;
+  }
+  .ft-disclosure > span {
+    font-size: 12px;
+  }
+  .ft-checkin-active {
+    font-size: 11px;
+  }
+  .ft-checkin-active small {
+    font-size: 11px;
+  }
+  .ft-checkin-options > p {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ft-spin {
+    animation: none;
+  }
+  .ft-primary-action,
+  .ft-spot-option {
+    transition: none;
+  }
+}
+/* The map controls its own viewport; preserve all labels and map tools. */
+.ft-map-frame,
+.ft-map-frame > div {
+  height: auto;
+}
+.ft-state-heading > p,
+.ft-person p,
+.ft-counterpart-status,
+.ft-directions > p,
+.ft-directions li {
+  color: #76767d;
+}
+.ft-counterpart-status {
+  font-size: 11px;
+}
+.ft-directions li {
+  font-size: 11px;
+}
+.ft-directions > small,
+.ft-checkin-options > p {
+  color: #86868b;
+  font-size: 11px;
+}
+.ft-spot-option strong {
+  color: #57534c;
+}
+.ft-spot-option small {
+  color: #88847b;
+  font-size: 11px;
+}
+.ft-demo-controls p,
+.ft-legacy-completion p {
+  color: #86868b;
+}
+.ft-sheet-expand {
+  display: none;
+}
+@media (max-width: 600px) {
+  .ft-sheet-expand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 44px;
+    width: 100%;
+    background: none;
+    color: #86868b;
+    font-size: 11px;
+    padding: 8px 0;
+  }
+  .ft-meeting-sheet:not(.expanded) .ft-check-in {
+    display: none;
+  }
+  .ft-sheet-expand + .ft-counterpart-status {
+    padding-top: 5px;
+  }
+}
+/* Keep the map and the next meaningful action together on an iPhone. */
+@media (max-width: 600px) {
+  .workspace main:has(.ft-screen) {
+    padding-top: 8px;
+  }
+  .ft-page-top {
+    margin: 0;
+    min-height: 36px;
+  }
+  .ft-page-top > a {
+    min-height: 36px;
+    font-size: 11px;
+  }
+  .ft-page-top > span {
+    font-size: 11px;
+  }
+  .ft-page-heading {
+    margin: 4px 0 14px;
+    align-items: center;
+  }
+  .ft-page-heading .ft-kicker,
+  .ft-page-heading > div > p {
+    display: none;
+  }
+  .ft-page-heading h1 {
+    font-size: 25px;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.8px;
+  }
+  .ft-map-frame .ft-venue-map {
+    min-height: 0;
+    height: 290px;
+    border-radius: 0;
+  }
+  .ft-map-frame .ft-map-topline {
+    padding: 11px 17px 0;
+  }
+  .ft-map-frame .ft-map-topline > span:first-child {
+    font-size: 11px;
+  }
+  .ft-map-frame .ft-map-topline small {
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  .ft-map-frame .ft-map-floor {
+    font-size: 11px;
+    padding: 5px 7px;
+  }
+  .ft-map-frame .ft-map-viewport {
+    min-height: 205px;
+  }
+  .ft-map-frame .ft-map-bottomline {
+    min-height: 44px;
+    justify-content: flex-end;
+    padding: 0 14px;
+  }
+  .ft-map-frame .ft-map-bottomline > span {
+    display: none;
+  }
+  .ft-map-frame .ft-map-zone-list {
+    position: absolute;
+    bottom: 0;
+    left: 17px;
+    margin: 0;
+    z-index: 8;
+    border: 0;
+    width: 138px;
+  }
+  .ft-map-frame .ft-map-zone-list summary {
+    min-height: 44px;
+    font-size: 11px;
+    gap: 9px;
+    background: white;
+  }
+  .ft-map-frame .ft-map-zone-list[open] ul {
+    position: absolute;
+    bottom: 37px;
+    left: -6px;
+    width: min(310px, calc(100vw - 32px));
+    max-height: 230px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #eceae8;
+    box-shadow: 0 6px 25px #24211c0d;
+    border-radius: 12px;
+    padding: 10px;
+  }
+  .ft-map-frame .ft-map-zone-list li > button {
+    min-height: 60px;
+  }
+  .ft-map-frame .ft-map-accuracy {
+    display: none;
+  }
+  .ft-meeting-sheet {
+    margin-top: 0;
+    padding-bottom: 18px;
+  }
+  .ft-sheet-handle {
+    height: 20px;
+  }
+  .ft-person {
+    gap: 10px;
+    padding-bottom: 14px;
+  }
+  .ft-person-avatar,
+  .ft-person-avatar img {
+    width: 42px;
+    height: 42px;
+  }
+  .ft-person > div:last-child > span {
+    font-size: 11px;
+  }
+  .ft-person h2 {
+    font-size: 16px;
+    margin-top: 4px;
+  }
+  .ft-person p {
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  .ft-state-heading {
+    padding-top: 16px;
+  }
+  .ft-state-heading h3 {
+    font-size: 23px;
+    letter-spacing: -0.7px;
+  }
+  .ft-state-heading > p {
+    font-size: 11px;
+    line-height: 1.65;
+    margin-top: 9px;
+  }
+  .ft-primary-action {
+    margin-top: 17px;
+    min-height: 46px;
+  }
+  .ft-sheet-details {
+    margin-top: 7px;
+  }
+  .ft-counterpart-status {
+    padding: 13px 0;
+    font-size: 11px;
+  }
+  .ft-counterpart-status small {
+    font-size: 11px;
+  }
+  .ft-sheet-privacy {
+    padding-top: 12px;
+    font-size: 11px;
+  }
+  .ft-directions {
+    padding-top: 15px;
+  }
+  .ft-directions ol {
+    gap: 9px;
+  }
+  .ft-directions li {
+    font-size: 11px;
+  }
+}
+@media (max-width: 600px) {
+  .ft-sheet-main:not(.is-picking) {
+    display: flex;
+    flex-direction: column;
+  }
+  .ft-sheet-main:not(.is-picking) .ft-state-heading {
+    order: 0;
+  }
+  .ft-sheet-main:not(.is-picking) .ft-arrival-status {
+    order: 1;
+  }
+  .ft-sheet-main:not(.is-picking) .ft-primary-action {
+    order: 2;
+  }
+  .ft-sheet-main:not(.is-picking) .ft-quiet-action {
+    order: 3;
+  }
+  .ft-sheet-main:not(.is-picking) .ft-directions,
+  .ft-sheet-main:not(.is-picking) .ft-verification {
+    order: 4;
+  }
+}
+/* Fit the complete floor plan inside the compact mobile viewport. */
+@media (max-width: 600px) {
+  .ft-map-frame .ft-venue-map {
+    height: 330px;
+  }
+  .ft-map-frame .ft-map-viewport {
+    min-height: 245px;
+  }
+  .ft-map-frame .ft-map-scene {
+    width: min(100%, 280px);
+  }
+}

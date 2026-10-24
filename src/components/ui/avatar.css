@@ -1,0 +1,28 @@
+.person-avatar-group {
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+  vertical-align: middle;
+  isolation: isolate;
+  overflow: visible;
+}
+.person-avatar-group > .person-avatar {
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+.person-avatar-twin {
+  position: absolute;
+  right: -8px;
+  bottom: -3px;
+  background: #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  box-shadow: 0 0 0 2px #fff;
+}
+.person-avatar-twin .twin-character {
+  display: block;
+}

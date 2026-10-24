@@ -1,0 +1,356 @@
+.ft-simple {
+  padding: 0;
+}
+.ft-simple-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.ft-simple-top > a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 12px;
+  color: #777780;
+}
+.ft-simple-top > span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 11px;
+  color: #929298;
+}
+.ft-simple-loading {
+  min-height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #929298;
+  font-size: 12px;
+}
+.ft-simple .ft-workspace {
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+  gap: 25px;
+}
+.ft-simple .ft-map-panel {
+  border-color: #f0f0f2;
+  border-radius: 18px;
+}
+.ft-simple .ft-meeting-sheet {
+  padding: 25px 23px 20px;
+  border-color: #f0f0f2;
+  border-radius: 18px;
+  box-shadow: none;
+}
+.ft-simple .ft-person {
+  padding-bottom: 21px;
+}
+.ft-simple .ft-person h2 {
+  margin-top: 0;
+  font-size: 19px;
+}
+.ft-simple .ft-person p {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #7c8b77;
+  margin-top: 7px;
+  font-size: 11px;
+}
+.ft-simple .ft-state-heading {
+  padding-top: 25px;
+}
+.ft-simple .ft-state-heading h3 {
+  font-size: 26px;
+  letter-spacing: -0.8px;
+}
+.ft-simple .ft-state-heading > p {
+  color: #898990;
+  font-size: 12px;
+  line-height: 1.85;
+}
+.ft-simple .ft-primary-action {
+  border-radius: 28px;
+  min-height: 48px;
+  font-size: 12px;
+  margin-top: 23px;
+}
+.ft-simple .ft-quiet-action {
+  color: #929298;
+  font-size: 11px;
+  margin-top: 2px;
+}
+.ft-simple .ft-counterpart-status {
+  border-top: 1px solid #f0f0f2;
+  border-bottom: 0;
+  padding-top: 20px;
+  margin-top: 10px;
+}
+.ft-simple .ft-counterpart-status small {
+  line-height: 1.8;
+}
+.ft-simple-checkin {
+  border: 0;
+}
+.ft-share-zone-link {
+  width: 100%;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  min-height: 44px;
+  background: transparent;
+  color: #777780;
+  font-size: 11px;
+  padding: 0;
+}
+.ft-share-zone-link small {
+  margin-left: auto;
+  color: #aaaab0;
+  font-size: 11px;
+}
+.ft-simple-directions {
+  border-top: 1px solid #f1f1f4;
+  margin-top: 5px;
+}
+.ft-simple-directions > summary {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #85858e;
+  cursor: pointer;
+  list-style: none;
+}
+.ft-simple-directions > summary::-webkit-details-marker {
+  display: none;
+}
+.ft-simple-directions .ft-directions {
+  padding-top: 4px;
+  margin: 0;
+}
+.ft-mini-content .ft-spot-picker {
+  margin-top: 4px;
+}
+.ft-mini-content .ft-spot-picker legend {
+  display: none;
+}
+.ft-mini-content .ft-spot-option {
+  min-height: 62px;
+  border-radius: 11px;
+  padding: 12px;
+}
+.ft-mini-content .ft-spot-option small {
+  display: none;
+}
+.ft-mini-content .ft-spot-option strong {
+  font-size: 12px;
+}
+.ft-mini-content .ft-primary-action {
+  width: 100%;
+  border-radius: 27px;
+  min-height: 48px;
+  margin-top: 23px;
+}
+.ft-mini-content .ft-quiet-action {
+  width: 100%;
+  background: none;
+  color: #8d8d95;
+  min-height: 44px;
+  margin-top: 5px;
+  font-size: 11px;
+}
+.ft-mini-label {
+  font-size: 12px;
+  color: #777780;
+  margin-bottom: 11px;
+  display: block;
+}
+.ft-mini-select {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 1px solid #e7e7eb;
+  border-radius: 11px;
+  color: #4e4e56;
+  background: #fafafa;
+  font-size: 13px;
+}
+.ft-mini-privacy {
+  display: flex;
+  gap: 8px;
+  align-items: start;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #929298;
+  margin-top: 17px;
+}
+.ft-mini-privacy > svg {
+  margin-top: 3px;
+}
+.ft-mini-landmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #efeff2;
+  border-radius: 15px;
+  padding: 28px 20px;
+  color: #88877f;
+}
+.ft-mini-landmark strong {
+  font-size: 18px;
+  color: #35353d;
+  margin-top: 14px;
+}
+.ft-mini-landmark p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #929298;
+  margin-top: 9px;
+}
+.ft-mini-error {
+  color: #a06b53;
+  font-size: 11px;
+  line-height: 1.7;
+  margin-top: 13px;
+}
+.ft-embedded .ft-map-panel,
+.ft-embedded .ft-meeting-sheet {
+  border: 0;
+  box-shadow: none;
+}
+.ft-embedded .ft-workspace {
+  gap: 18px;
+}
+.ft-embedded .ft-meeting-sheet {
+  padding: 15px 10px 12px;
+}
+.ft-embedded .ft-map-panel {
+  background: #fbfbf9;
+}
+.ft-embedded .ft-map-accuracy {
+  display: none;
+}
+.ft-embedded .ft-venue-map {
+  min-height: 480px;
+}
+.ft-embedded .ft-celebration h2 {
+  font-size: 28px;
+}
+.ft-simple .ft-meeting-sheet:not(.expanded) .ft-check-in {
+  display: block;
+}
+@media (max-width: 800px) {
+  .ft-simple .ft-workspace {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .ft-simple .ft-meeting-sheet {
+    margin-top: -15px;
+    z-index: 2;
+  }
+  .ft-embedded .ft-map-panel {
+    border-radius: 14px;
+  }
+  .ft-embedded .ft-meeting-sheet {
+    padding: 15px 7px;
+  }
+}
+@media (max-width: 600px) {
+  .ft-simple-top {
+    margin-bottom: 12px;
+  }
+  .ft-simple .ft-map-frame .ft-venue-map {
+    height: 300px;
+    min-height: 300px;
+  }
+  .ft-simple .ft-map-frame .ft-map-viewport {
+    min-height: 220px;
+  }
+  .ft-simple .ft-map-frame .ft-map-scene {
+    width: min(100%, 260px);
+  }
+  .ft-simple .ft-meeting-sheet {
+    padding: 0 22px 19px;
+    border-radius: 22px;
+  }
+  .ft-simple .ft-person {
+    padding-bottom: 14px;
+  }
+  .ft-simple .ft-person h2 {
+    font-size: 17px;
+  }
+  .ft-simple .ft-state-heading {
+    padding-top: 19px;
+  }
+  .ft-simple .ft-state-heading h3 {
+    font-size: 24px;
+  }
+  .ft-simple .ft-primary-action {
+    margin-top: 19px;
+  }
+  .ft-embedded .ft-meeting-sheet {
+    padding: 0 7px 12px;
+  }
+  .ft-embedded .ft-sheet-handle {
+    display: none;
+  }
+  .ft-embedded .ft-person {
+    padding-top: 17px;
+  }
+  .ft-simple .ft-counterpart-status {
+    margin-top: 8px;
+    padding-top: 17px;
+  }
+  .ft-embedded .ft-map-frame .ft-venue-map {
+    height: 285px;
+    min-height: 285px;
+  }
+  .ft-embedded .ft-map-frame .ft-map-viewport {
+    min-height: 205px;
+  }
+  .ft-embedded .ft-map-frame .ft-map-scene {
+    width: min(100%, 245px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ft-simple .ft-primary-action {
+    transition: none;
+  }
+}
+/* Embedded sheets already fill their dialog; standalone page gutters do not apply. */
+.ft-embedded {
+  width: 100%;
+  min-width: 0;
+}
+.ft-embedded .ft-workspace {
+  margin: 0;
+  min-width: 0;
+}
+@media (max-width: 600px) {
+  .ft-embedded .ft-meeting-sheet {
+    padding: 0 22px 18px;
+    margin-top: 0;
+    border-radius: 0;
+  }
+  .ft-embedded .ft-map-panel {
+    border-radius: 0;
+  }
+}
+
+.ft-person-mini-twin {
+  position: absolute;
+  bottom: -5px;
+  right: -7px;
+  z-index: 3;
+  background: #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+}
