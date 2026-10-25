@@ -24,7 +24,8 @@ export default function NotesDemo({
   const turn = Math.floor(progress / 100);
   const transcript = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (stage === "talking" && transcript.current) transcript.current.scrollTop = transcript.current.scrollHeight;
+    if (stage === "talking" && transcript.current)
+      transcript.current.scrollTop = transcript.current.scrollHeight;
   }, [progress, stage]);
   useEffect(() => {
     if (stage === "talking") {
