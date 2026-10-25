@@ -10,6 +10,7 @@ import {
   CalendarDays,
   MapPin,
   ChevronDown,
+  BookOpen,
 } from "lucide-react";
 import type { ConferenceGoals, DemoState } from "@/lib/types";
 import { defaultGoals } from "@/lib/fixtures";
@@ -125,7 +126,12 @@ export default function HomeView() {
       >
         <div className="welcome-twin-halo" aria-hidden="true" />
         <div className="welcome-twin-character">
-          <TwinCharacter size={180} mood="idle" interactive personId={state?.activeUserId ?? "usr_self"} />
+          <TwinCharacter
+            size={180}
+            mood="idle"
+            interactive
+            personId={state?.activeUserId ?? "usr_self"}
+          />
         </div>
         <span className="welcome-twin-caption">
           Your twin. A little more you.
@@ -233,6 +239,10 @@ export default function HomeView() {
               : "Start conference"}
           <ArrowRight size={17} />
         </button>
+        <Link href="/meaningful-notes" className="welcome-notes-button">
+          <BookOpen size={16} strokeWidth={1.5} /> Meaningful Notes{" "}
+          <ArrowUpRight size={14} />
+        </Link>
         <p className="welcome-choice">
           Your twin connects. You always choose whom to meet.
         </p>

@@ -561,6 +561,13 @@ export async function DELETE(
         (meeting) =>
           meeting.ownerUserId !== userId && meeting.candidateId !== userId,
       );
+      if (db.fieldnotes) {
+        const remainingMeetings = new Set(db.meetings.map(meeting => meeting.id));
+        for (const key of Object.keys(db.fieldnotes)) {
+          const [meetingId, ownerId] = JSON.parse(key) as string[];
+          if (ownerId === userId || !remainingMeetings.has(meetingId)) delete db.fieldnotes[key];
+        }
+      }
       db.integrationEvents = db.integrationEvents.filter(
         (event) => event.user_id !== userId,
       );

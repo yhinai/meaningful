@@ -1,6 +1,6 @@
 /* Conference canvas: the same event-driven graph with a more human center. */
 .conference-mode .mm-person-node {
-  animation: conference-node-appear 0.55s ease-out both;
+  animation: conference-node-appear 0.6s cubic-bezier(.22, 1, .36, 1) both;
 }
 .conference-mode .mm-person-node strong {
   font-size: 14px;
@@ -82,11 +82,13 @@
 @keyframes conference-node-appear {
   from {
     opacity: 0;
-    translate: 0 7px;
+    translate: 0 10px;
+    scale: .9;
   }
   to {
     opacity: 1;
     translate: 0 0;
+    scale: 1;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -106,4 +108,12 @@
 }
 .conference-mode .mm-self-node {
   transform: none;
+}
+
+.conference-arriving-edge .react-flow__edge-path {
+  animation: conference-edge-appear .7s ease-out both;
+}
+@keyframes conference-edge-appear { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .conference-arriving-edge .react-flow__edge-path { animation: none !important; }
 }

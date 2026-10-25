@@ -7,21 +7,28 @@ export function useConnections() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const generation = useRef(0);
+  const lastPayload = useRef("");
+  const refreshSequence = useRef(0);
   const alive = useRef(true);
   const mutationInFlight = useRef(false);
   const refresh = useCallback(async () => {
     const version = generation.current;
+    const sequence = ++refreshSequence.current;
     try {
       const response = await fetch("/api/demo/state", { cache: "no-store" });
       if (!response.ok)
         throw Error("Your connections couldn’t load. Please try again.");
-      const next = (await response.json()) as DemoState;
-      if (alive.current && version === generation.current) {
-        setState(next);
+      const payload = await response.text();
+      if (alive.current && version === generation.current && sequence === refreshSequence.current) {
+        if (payload !== lastPayload.current) {
+          const next = JSON.parse(payload) as DemoState;
+          lastPayload.current = payload;
+          setState(next);
+        }
         setError("");
       }
     } catch (e) {
-      if (alive.current && version === generation.current)
+      if (alive.current && version === generation.current && sequence === refreshSequence.current)
         setError(e instanceof Error ? e.message : "Please try again.");
     }
   }, []);

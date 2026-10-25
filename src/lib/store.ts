@@ -14,6 +14,7 @@ function fresh(): Database {
     matches: [],
     meetings: [],
     integrationEvents: [],
+    fieldnotes: {},
   };
 }
 async function read(): Promise<Database> {

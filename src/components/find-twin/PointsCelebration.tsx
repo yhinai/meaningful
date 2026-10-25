@@ -3,14 +3,17 @@
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Check, Coffee, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { fieldnotesPath } from "@/features/fieldnotes/paths";
 
 export default function PointsCelebration({
   eventId,
+  meetingId,
   name,
   points,
   onClose,
 }: {
   eventId: string;
+  meetingId: string;
   name: string;
   points: number;
   onClose?: () => void;
@@ -73,6 +76,9 @@ export default function PointsCelebration({
           </div>
         </div>
       )}
+      <Link className="ft-primary-action" href={fieldnotesPath(eventId, meetingId)}>
+        Keep the moment in Meaningful Notes <ArrowRight size={15} />
+      </Link>
       {onClose ? (
         <button className="ft-primary-action" onClick={onClose}>
           Back to your people <ArrowRight size={15} />

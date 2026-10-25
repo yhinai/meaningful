@@ -1,6 +1,9 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { fieldnotesPath } from "@/features/fieldnotes/paths";
 import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowRight,
@@ -45,6 +48,7 @@ export default function ConnectionsHub({
   initialMatchId?: string;
 }) {
   const { state, error, busy, refresh, act } = useConnections();
+  const router = useRouter();
   const [popup, setPopup] = useState<Popup>(null);
   const [popupOpen, setPopupOpen] = useState(false);
   const cachedSelection = useRef<Connection | undefined>(undefined);
@@ -104,7 +108,9 @@ export default function ConnectionsHub({
     );
   }
   function openConnection(connection: Connection) {
-    if (connection.status === "ready" || connection.status === "met")
+    if (connection.status === "met" && connection.meeting) {
+      router.push(fieldnotesPath(eventId, connection.meeting.id));
+    } else if (connection.status === "ready")
       showPopup({ type: "find", personId: connection.person.id });
     else showPopup({ type: "hello", personId: connection.person.id });
   }
@@ -120,9 +126,6 @@ export default function ConnectionsHub({
     <div className="conference-workspace">
       <header className="conference-heading">
         <div>
-          <span className="conference-eyebrow">
-            MEANINGFUL CONNECTIONS
-          </span>
           <h1>
             SF AI Summit <span className="conference-year">2026</span>
           </h1>
@@ -130,6 +133,9 @@ export default function ConnectionsHub({
             San Francisco <span>·</span> October 24–26
           </p>
         </div>
+        <Link href="/meaningful-notes" className="conference-notes-link">
+          Meaningful Notes <ArrowRight size={13} />
+        </Link>
       </header>
       <div className="conference-intention">
         <span>HERE FOR</span>
@@ -232,12 +238,12 @@ export default function ConnectionsHub({
         title={
           selected?.status === "incoming"
             ? `Meet ${firstName}?`
-            : `Say hello to ${firstName}.`
+            : "Let your twin connect."
         }
         description={
           selected?.status === "incoming"
             ? "They’d like to meet you. The next step is yours."
-            : "A thoughtful introduction. One small yes."
+            : `Your twin will introduce you to ${firstName}.`
         }
       >
         {selected && (
@@ -268,7 +274,7 @@ export default function ConnectionsHub({
               {busy ? <LoaderCircle size={15} /> : <MessageCircle size={15} />}
               {selected.status === "incoming"
                 ? "Yes, let’s meet"
-                : "Send introduction"}
+                : "Let your twin connect"}
             </button>
             {selected.status === "incoming" && (
               <button
@@ -302,7 +308,7 @@ export default function ConnectionsHub({
               >
                 {selected.status === "incoming"
                   ? "Respond to invitation"
-                  : "Say hello"}
+                  : "Let your twin connect"}
                 <ArrowRight size={14} />
               </button>
             ) : selected.status === "ready" ? (

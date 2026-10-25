@@ -1,140 +1,137 @@
-/* Avatar and twin remain distinct identities at every scale. */
+/* Two quiet orbits, generous white space, and a clear human center. */
+.conference-mode .react-flow__node-person,
+.conference-mode .mm-person-node { width: 220px; }
+.conference-mode .mm-graph-avatar {
+  width: var(--graph-photo-size, 80px);
+  height: var(--graph-photo-size, 80px);
+  border: 2px solid #fff;
+  box-shadow: 0 2px 10px #1d1d1f09;
+}
 .mm-attendee-twin {
   position: absolute;
-  right: -12px;
-  bottom: -3px;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  right: -23%;
+  bottom: -7%;
+  width: var(--graph-twin-size, 34px);
+  height: var(--graph-twin-size, 34px);
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 0 0 2px #fff;
   z-index: 3;
 }
-.mm-attendee-twin > .twin-character {
-  display: block;
-}
-.conference-mode .mm-person-node > strong {
-  font-size: var(--graph-label-size, 13px);
-  font-weight: 550;
-  line-height: 1.3;
-  margin-top: 7px;
-  overflow: visible;
-  max-width: none;
-}
-.conference-mode .mm-person-node > .mm-node-role {
-  font-size: var(--graph-meta-size, 11px);
-  line-height: 1.4;
-  margin-top: 5px;
-  max-width: none;
-  overflow: visible;
-}
-.conference-mode .mm-person-node[data-overview="true"] > strong,
-.conference-mode .mm-person-node[data-hide-metadata="true"] > .mm-node-role {
-  visibility: hidden;
-}
-.conference-mode .react-flow__node:focus-visible .mm-person-node > strong,
-.conference-mode .react-flow__node:hover .mm-person-node > strong {
-  visibility: visible;
-  background: #ffffffef;
-  border-radius: 5px;
-  position: relative;
-  z-index: 6;
-}
-.conference-mode .react-flow__controls {
-  border: 1px solid #ececf0;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 3px 14px #1d1d1f06;
-}
-.conference-mode .react-flow__controls button {
-  height: 44px;
-  width: 44px;
-  border-bottom-color: #eeeef1;
-  background: #fff;
-}
-.conference-mode .react-flow__controls button svg {
-  width: 16px;
-  height: 16px;
-}
-
-.conference-mode .mm-node-badge {
-  right: -1px;
-  top: -3px;
-  bottom: auto;
-}
-.conference-mode .react-flow__attribution {
-  font-size: 11px;
-}
-.conference-mode .mm-avatar-ring {
-  overflow: visible;
-}
-.conference-mode .mm-person-node > .mm-node-role {
-  white-space: nowrap;
-}
-
-/* A calm constellation gives each of the thirty people room to be recognised. */
-.conference-mode .mm-graph-avatar {
-  width: var(--graph-photo-size, 80px);
-  height: var(--graph-photo-size, 80px);
-  border-width: 2px;
-  box-shadow: 0 3px 12px #1d1d1f0c;
-}
-.conference-mode .mm-attendee-twin {
-  width: var(--graph-twin-size, 48px);
-  height: var(--graph-twin-size, 48px);
-  right: -25%;
-  bottom: -8%;
-  box-shadow: 0 0 0 2px #fff;
-}
-.conference-mode .mm-attendee-twin > .twin-character {
-  width: 100% !important;
-  height: 100% !important;
-}
+.mm-attendee-twin > .twin-character { width: 100% !important; height: 100% !important; }
+.conference-mode .mm-avatar-ring { overflow: visible; }
 .conference-mode .mm-self-node .mm-graph-avatar {
-  width: var(--graph-self-size, 104px);
-  height: var(--graph-self-size, 104px);
+  width: var(--graph-self-size, 120px);
+  height: var(--graph-self-size, 120px);
 }
-.conference-mode .mm-self-node .mm-graph-avatar > .twin-character {
-  width: 100% !important;
-  height: 100% !important;
-}
+.conference-mode .mm-self-node .mm-graph-avatar > .twin-character { width: 100% !important; height: 100% !important; }
 .conference-mode .mm-person-node > strong {
   display: block;
-  width: var(--graph-label-width, 150px);
-  max-width: none;
-  margin: 12px 0 0 50%;
+  width: max-content;
+  max-width: var(--graph-label-width, 150px);
+  margin: 10px 0 0 50%;
   transform: translateX(-50%);
-  color: #35353b;
-  font-weight: 550;
+  font-size: var(--graph-label-size, 13px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: #55555e;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  padding: 1px 3px;
+  background: #ffffffdf;
+  border-radius: 5px;
 }
 .conference-mode .mm-person-node > .mm-node-role { display: none; }
-.conference-mode .mm-orbits { display: none; }
-
+.conference-mode .mm-self-node > strong { color: #77717f; }
+.conference-mode .mm-orbits { display: block; }
+.conference-mode .mm-orbits i {
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: 38%;
+  aspect-ratio: 1.19;
+  border: 1px solid #f1f1f3;
+}
+.conference-mode .mm-orbits i:nth-child(2) { width: 76%; border-style: dashed; }
+.conference-mode .mm-orbits i:nth-child(3) { display: none; }
 .conference-mode .react-flow__controls {
-  top: 8px;
-  bottom: auto;
+  top: auto;
+  bottom: 14px;
   left: 14px;
-  flex-direction: row;
+  border: 1px solid #ececf0;
+  border-radius: 13px;
+  overflow: hidden;
+  box-shadow: 0 3px 14px #1d1d1f04;
 }
-.conference-mode .react-flow__controls button {
-  border-bottom: 0;
-  border-right: 1px solid #eeeef1;
+.conference-mode .react-flow__controls button { height: 44px; width: 44px; background: #fff; border-bottom-color: #eeeef1; }
+.conference-mode .react-flow__controls button svg { width: 16px; height: 16px; }
+.conference-mode .mm-node-badge { right: -1px; top: -3px; bottom: auto; }
+.conference-mode .react-flow__attribution { font-size: 11px; }
+@media(max-width:600px) {
+  .conference-mode .mm-graph-avatar { width: calc(var(--graph-photo-size) * .86); height: calc(var(--graph-photo-size) * .86); }
+  .conference-mode .mm-attendee-twin { width: calc(var(--graph-twin-size) * .9); height: calc(var(--graph-twin-size) * .9); }
 }
-.conference-mode .react-flow__controls button:last-child { border-right: 0; }
 
-@media (max-width: 600px) {
-  .conference-mode .mm-graph-avatar {
-    width: calc(var(--graph-photo-size) * .82);
-    height: calc(var(--graph-photo-size) * .82);
-  }
-  .conference-mode .mm-attendee-twin {
-    width: calc(var(--graph-twin-size) * .9);
-    height: calc(var(--graph-twin-size) * .9);
-  }
-  .conference-mode .mm-person-node > strong { font-size: calc(var(--graph-label-size) * .92); }
+.conference-mode .conference-chosen-edge .react-flow__edge-path {
+  stroke: #268653;
+  stroke-width: 1.5px;
+}
+.conference-mode .mm-person-node[data-chosen="true"] .mm-node-badge {
+  width: var(--graph-check-size, 17px);
+  height: var(--graph-check-size, 17px);
+  border-width: var(--graph-check-border, 2px);
+  background: #268653;
+  right: -5%;
+  top: -7%;
+  box-shadow: 0 1px 5px #26865316;
+  z-index: 4;
+}
+.conference-mode .mm-person-node[data-chosen="true"] .mm-node-badge svg {
+  width: var(--graph-check-icon, 10px);
+  height: var(--graph-check-icon, 10px);
+  stroke-width: 3;
+}
+
+/* Fixed geometry prevents zoom from triggering node measurement feedback. */
+.conference-mode .mm-person-node {
+  position: relative;
+  height: 230px;
+  min-height: 230px;
+}
+.conference-mode .mm-person-node .mm-avatar-ring {
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+.conference-mode .mm-person-node > strong {
+  position: absolute;
+  left: 50%;
+  top: calc(60px + var(--graph-photo-size) / 2 + 10px);
+  margin: 0;
+}
+.conference-mode .mm-self-node > strong {
+  top: calc(60px + var(--graph-self-size) / 2 + 10px);
+}
+.conference-mode .react-flow__pane { cursor: grab; }
+.conference-mode .react-flow__pane.dragging { cursor: grabbing; }
+/* Only visible people receive pointer input; invisible node boxes cannot mask neighbours. */
+.conference-mode .react-flow__node-person,
+.conference-mode .mm-person-node { pointer-events: none !important; }
+.conference-mode .mm-person-node .mm-avatar-ring,
+.conference-mode .mm-person-node > strong { pointer-events: auto; cursor: pointer; }
+.conference-mode .mm-person-node .mm-avatar-ring::before {
+  content: "";
+  position: absolute;
+  inset: calc(var(--graph-check-size) * -.25);
+  border-radius: 50%;
+}
+
+@media(max-width:600px) { .conference-mode .mm-self-node > strong { display: none; } }
+@media(max-width:600px) {
+  .conference-mode .react-flow__controls { top: 8px; bottom: auto; flex-direction: row; }
+  .conference-mode .react-flow__controls button { border-bottom: 0; border-right: 1px solid #eeeef1; }
+  .conference-mode .react-flow__controls button:last-child { border-right: 0; }
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { fieldnotesPath } from "@/features/fieldnotes/paths";
 import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowLeft,
@@ -265,6 +266,7 @@ export default function FindTwinScreen({
               {completed && view.verification.bothConfirmed ? (
                 <PointsCelebration
                   eventId={eventId}
+                  meetingId={meetingId}
                   name={name}
                   points={view.rewards.points}
                   onClose={onClose}
@@ -273,6 +275,9 @@ export default function FindTwinScreen({
                 <section className="ft-legacy-completion">
                   <Check size={30} />
                   <h2>A connection made.</h2>
+                  <Link className="ft-primary-action" href={fieldnotesPath(eventId, meetingId)}>
+                    Open your Meaningful Notes <ArrowRight size={15} />
+                  </Link>
                   <p>
                     This meeting is saved as completed. No new points have been
                     added.
@@ -386,6 +391,9 @@ export default function FindTwinScreen({
                     now={now}
                     online={online}
                   />
+                  <Link className="ft-quiet-action" href={fieldnotesPath(eventId, meetingId)}>
+                    Conversation notes & live Omi <ArrowRight size={13} />
+                  </Link>
                   {confirmed && (
                     <>
                       <ZoneCheckIn

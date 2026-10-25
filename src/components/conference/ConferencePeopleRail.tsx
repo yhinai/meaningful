@@ -95,7 +95,7 @@ export default function ConferencePeopleRail({
                   ) : (
                     <button
                       onClick={() => onOpen(connection)}
-                      aria-label={`${connection.status === "ready" ? "Meet up with" : connection.status === "met" ? "View your moment with" : connection.status === "incoming" ? "Respond to" : "Say hello to"} ${connection.person.name}`}
+                      aria-label={`${connection.status === "ready" ? "Meet up with" : connection.status === "met" ? "View your moment with" : connection.status === "incoming" ? "Respond to" : "Let your twin connect with"} ${connection.person.name}`}
                     >
                       {connection.status === "ready"
                         ? "Meet up"
@@ -103,7 +103,7 @@ export default function ConferencePeopleRail({
                           ? "View moment"
                           : connection.status === "incoming"
                             ? "Respond"
-                            : "Say hello"}
+                            : "Let your twin connect"}
                       <ArrowRight size={13} />
                     </button>
                   )}

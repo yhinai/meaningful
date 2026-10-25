@@ -595,3 +595,6 @@
   display: block;
   margin: 8px auto 0;
 }
+.conference-notes-link{display:inline-flex;align-items:center;gap:9px;border:1px solid #dedfd9;border-radius:22px;padding:11px 16px;font-size:11px;color:#52624c;white-space:nowrap;margin:12px 0;background:#fafbf7}
+.conference-notes-link:hover{background:#eff3e9}
+@media(max-width:600px){.conference-heading{flex-wrap:wrap;gap:8px}.conference-notes-link{margin:0 0 7px}}

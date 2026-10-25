@@ -1,7 +1,10 @@
 "use client";
-import { memo, useMemo, useEffect, type CSSProperties } from "react";
+import { memo, useMemo, useEffect, useRef, useState, type CSSProperties } from "react";
 import {
   ReactFlow,
+  BaseEdge,
+  getStraightPath,
+  type EdgeProps,
   Background,
   Handle,
   Position,
@@ -10,7 +13,7 @@ import {
   type Edge,
   BackgroundVariant,
   Controls,
-  useViewport,
+  useStore,
   useReactFlow,
   useNodesInitialized,
 } from "@xyflow/react";
@@ -27,6 +30,7 @@ type PersonNodeData = {
   self?: boolean;
   status?: string;
   selected?: boolean;
+  chosen?: boolean;
   compact?: boolean;
   conference?: boolean;
   twinMood?: "idle" | "working" | "happy";
@@ -36,12 +40,13 @@ type PersonNodeType = Node<PersonNodeData, "person">;
 const PersonNode = memo(function PersonNode({
   data,
 }: NodeProps<PersonNodeType>) {
-  const { zoom } = useViewport();
+  const zoom = useStore((state) => state.transform[2]);
   const {
     person,
     self,
     status,
     selected,
+    chosen,
     compact,
     conference,
     twinMood,
@@ -50,17 +55,21 @@ const PersonNode = memo(function PersonNode({
   return (
     <div
       data-overview={false}
+      data-chosen={chosen}
       data-hide-metadata={conference}
       style={
         conference
           ? ({
-              animationDelay: `${Math.min(index * 0.025, 0.4)}s`,
-              "--graph-label-size": `${13 / zoom}px`,
-              "--graph-photo-size": `${Math.max(90, 44 / zoom)}px`,
-              "--graph-twin-size": `${Math.max(50, 27 / zoom)}px`,
-              "--graph-self-size": `${Math.max(104, 58 / zoom)}px`,
-              "--graph-label-width": `${Math.min(84, 184 * zoom) / zoom}px`,
+              animationDelay: `${index * 0.16}s`,
+              "--graph-label-size": `${12 / zoom}px`,
+              "--graph-photo-size": `${Math.max(80, 34 / zoom)}px`,
+              "--graph-twin-size": `${Math.max(44, 23 / zoom)}px`,
+              "--graph-self-size": `${Math.max(120, 64 / zoom)}px`,
+              "--graph-label-width": `${84 / zoom}px`,
               "--graph-meta-size": `${11 / zoom}px`,
+              "--graph-check-size": `${17 / zoom}px`,
+              "--graph-check-icon": `${10 / zoom}px`,
+              "--graph-check-border": `${2 / zoom}px`,
             } as CSSProperties)
           : undefined
       }
@@ -69,7 +78,7 @@ const PersonNode = memo(function PersonNode({
       <Handle
         type="target"
         position={Position.Top}
-        style={{ opacity: 0, top: self && conference ? 50 : 34, left: "50%" }}
+        style={{ opacity: 0, top: conference ? 60 : 34, left: "50%" }}
       />
       <div className="mm-avatar-ring">
         <div className="mm-graph-avatar">
@@ -121,8 +130,8 @@ const PersonNode = memo(function PersonNode({
           <span className="mm-node-badge rejected" title="Not a fit">
             <X size={10} />
           </span>
-        ) : status === "qualified" ? (
-          <span className="mm-node-badge">
+        ) : chosen ? (
+          <span className="mm-node-badge" title="You chose this connection" aria-label="You chose this connection">
             <Check size={10} />
           </span>
         ) : status === "negotiating" ? (
@@ -158,30 +167,47 @@ const PersonNode = memo(function PersonNode({
         position={Position.Bottom}
         style={{
           opacity: 0,
-          top: self && conference ? 50 : 34,
+          top: conference ? 60 : 34,
           bottom: "auto",
           left: "50%",
         }}
       />
     </div>
   );
+
+}, (previous, next) => {
+  const before = previous.data;
+  const after = next.data;
+  return before.person.id === after.person.id &&
+    before.person.name === after.person.name && before.person.avatar === after.person.avatar &&
+    before.self === after.self && before.status === after.status &&
+    before.selected === after.selected && before.chosen === after.chosen && before.compact === after.compact &&
+    before.conference === after.conference && before.twinMood === after.twinMood &&
+    before.index === after.index;
 });
 const nodeTypes = { person: PersonNode };
+function ConferenceEdge({ id, sourceX, sourceY, targetX, targetY, style, markerEnd }: EdgeProps) {
+  const zoom = useStore((state) => state.transform[2]);
+  const [path] = getStraightPath({ sourceX, sourceY, targetX, targetY });
+  const chosen = style?.stroke === "#268653";
+  return <BaseEdge id={id} path={path} markerEnd={markerEnd}
+    style={{ ...style, strokeWidth: (chosen ? 1.5 : .45) / zoom }} />;
+}
+const edgeTypes = { conference: ConferenceEdge };
+
 function FitCircle({ count, filter }: { count: number; filter: string }) {
   const { fitView } = useReactFlow();
   const ready = useNodesInitialized();
+  const viewportReady = useStore((state) => state.panZoom !== null);
+  const width = useStore((state) => state.width);
+  const height = useStore((state) => state.height);
   useEffect(() => {
-    if (!ready) return;
-    const timer = setTimeout(() => {
-      void fitView({
-        padding: 0.18,
-        duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? 0
-          : 700,
-      });
-    }, 120);
-    return () => clearTimeout(timer);
-  }, [count, filter, fitView, ready]);
+    if (!ready || !viewportReady || width <= 0 || height <= 0) return;
+    const frame = requestAnimationFrame(() => {
+      void fitView({ padding: .12, minZoom: .16, maxZoom: 1, duration: 0 });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [count, filter, fitView, ready, viewportReady, width, height]);
   return null;
 }
 
@@ -192,6 +218,7 @@ export interface OrbitalGraphProps {
   onSelect?: (person: GraphPerson) => void;
   activeIds?: string[];
   qualifiedIds?: string[];
+  chosenIds?: string[];
   acceptedIds?: string[];
   completedIds?: string[];
   onTwinSelect?: () => void;
@@ -208,6 +235,7 @@ export default function OrbitalGraph({
   onSelect,
   activeIds = [],
   qualifiedIds = [],
+  chosenIds,
   acceptedIds = [],
   completedIds = [],
   onTwinSelect,
@@ -217,7 +245,19 @@ export default function OrbitalGraph({
   compact = false,
   filter = "All",
 }: OrbitalGraphProps) {
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const element = canvasRef.current;
+    if (!element || !conferenceMode) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setNarrow(entry.contentRect.width < 440);
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [conferenceMode]);
   const { nodes, edges } = useMemo(() => {
+    const chosen = new Set(chosenIds ?? [...acceptedIds, ...completedIds]);
     const self: PersonNodeType = {
       id: "self",
       type: "person",
@@ -242,11 +282,11 @@ export default function OrbitalGraph({
     const persons = people;
     const graphNodes: PersonNodeType[] = persons.map((p, i) => {
       const inner = i < 10;
-      const ringIndex = inner ? i : i - 10;
-      const angle = (ringIndex / (inner ? 10 : 20)) * Math.PI * 2 - Math.PI / 2;
-      const radius = inner ? 245 : 475;
+      const angle = ((inner ? i : i - 10) / (inner ? 10 : 20)) * Math.PI * 2
+        - Math.PI / 2 + (inner ? 0 : Math.PI / 20);
+      const radius = inner ? 300 : 600;
       const position = conferenceMode
-        ? { x: Math.round(Math.cos(angle) * radius), y: Math.round(Math.sin(angle) * radius) }
+        ? { x: Math.round(Math.cos(angle) * radius), y: Math.round(Math.sin(angle) * radius * (narrow ? 1.25 : .84)) }
         : orbitalPosition(i);
       const status = completedIds.includes(p.id)
         ? "completed"
@@ -272,6 +312,7 @@ export default function OrbitalGraph({
         data: {
           person: p,
           status,
+          chosen: chosen.has(p.id),
           selected: selectedId === p.id,
           compact,
           conference: conferenceMode,
@@ -287,34 +328,32 @@ export default function OrbitalGraph({
       id: `self-${p.id}`,
       source: "self",
       target: p.id,
-      type: "straight",
+      type: conferenceMode ? "conference" : "straight",
       animated: activeIds.includes(p.id),
+      className: conferenceMode
+        ? `conference-arriving-edge ${chosen.has(p.id) ? "conference-chosen-edge" : ""}`
+        : undefined,
       style: {
-        stroke: completedIds.includes(p.id)
-          ? "#b9c4b8"
-          : acceptedIds.includes(p.id)
-            ? "#347857"
-            : activeIds.includes(p.id)
-              ? "#7f8791"
-              : qualifiedIds.includes(p.id)
-                ? "#91aa99"
-                : "#e3e3e8",
+        ...(conferenceMode ? { animationDelay: `${(i + 1) * 0.16}s` } : {}),
+        stroke: chosen.has(p.id) ? "#268653" : activeIds.includes(p.id) ? "#7f8791" : "#e3e3e8",
         strokeWidth: acceptedIds.includes(p.id)
           ? 2.5
           : activeIds.includes(p.id)
             ? 1.7
             : 0.8,
-        opacity: i < 7 ? 0.8 : 0.55,
+        opacity: chosen.has(p.id) ? .9 : .35,
       },
       hidden: graphNodes[i].hidden,
     }));
     return { nodes: [self, ...graphNodes], edges: graphEdges };
   }, [
     people,
+    narrow,
     selfPersonId,
     selectedId,
     activeIds,
     qualifiedIds,
+    chosenIds,
     acceptedIds,
     completedIds,
     rejectedIds,
@@ -325,6 +364,7 @@ export default function OrbitalGraph({
   ]);
   return (
     <div
+      ref={canvasRef}
       className={`mm-orbital-graph ${compact ? "compact" : ""} ${conferenceMode ? "conference-mode" : ""}`}
       onKeyDown={(event) => {
         if (!conferenceMode || (event.key !== "Enter" && event.key !== " "))
@@ -350,6 +390,7 @@ export default function OrbitalGraph({
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
         fitViewOptions={{ padding: compact ? 0.1 : 0.12 }}
         minZoom={0.16}
@@ -357,16 +398,20 @@ export default function OrbitalGraph({
         nodesConnectable={false}
         nodesDraggable={false}
         panOnDrag={!compact}
-        zoomOnScroll={!compact}
+        zoomOnScroll={!conferenceMode && !compact}
+        zoomActivationKeyCode={conferenceMode ? ["Meta", "Control"] : null}
+        preventScrolling={false}
         zoomOnPinch={!compact}
         zoomOnDoubleClick={!compact}
+        edgesFocusable={false}
+        edgesReconnectable={false}
         elementsSelectable={!compact}
         onNodeClick={(_, node) => {
           if (node.id === "self") onTwinSelect?.();
           else onSelect?.(node.data.person as GraphPerson);
         }}
       >
-        <FitCircle count={nodes.length} filter={filter} />
+        <FitCircle count={nodes.length} filter={`${filter}-${narrow}`} />
         {!compact && (
           <Controls showInteractive={false} position="bottom-left" />
         )}

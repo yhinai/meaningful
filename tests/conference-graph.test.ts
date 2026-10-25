@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { deriveConferenceCircle } from "../src/components/conference/graph-state";
+import { chosenConferencePeople, deriveConferenceCircle } from "../src/components/conference/graph-state";
 import { deriveConnections } from "../src/components/connections/model";
 import { attendees, defaultGoals, defaultProfile } from "../src/lib/fixtures";
 import type { DemoState, Meeting, RunEvent, TwinRun } from "../src/lib/types";
@@ -170,4 +170,18 @@ test("each new scout grows the live circle without dropping earlier nine or reve
   const replay = deriveConferenceCircle(state, next.slice(0, 1), false);
   assert.equal(replay.people.length, 1);
   assert.equal(replay.qualified.length, 0);
+});
+
+test("green connections require the current person’s choice, not twin qualification", () => {
+  const state = stateWith([event("match.qualified", "usr_01")]);
+  assert.deepEqual(chosenConferencePeople(state), []);
+  state.meetings = [
+    meeting("usr_02", "awaiting_approval"),
+    meeting("usr_03", "accepted"),
+    meeting("usr_04", "declined"),
+    { ...meeting("usr_self", "awaiting_approval"), ownerUserId: "usr_05", recipientAccepted: false },
+    { ...meeting("usr_self", "accepted"), ownerUserId: "usr_06", recipientAccepted: true },
+    { ...meeting("usr_07", "accepted"), ownerUserId: "usr_08" },
+  ];
+  assert.deepEqual(chosenConferencePeople(state), ["usr_02", "usr_03", "usr_06"]);
 });

@@ -83,7 +83,7 @@ export default function ConnectionCard({
                 ? "Respond"
                 : status === "met"
                   ? "View moment"
-                  : "Say hello"}
+                  : "Let your twin connect"}
             <ArrowRight size={14} />
           </button>
         )}

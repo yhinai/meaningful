@@ -20,7 +20,7 @@ Open http://localhost:3000. Validate with `npm test`, `npm run typecheck`, and `
 5. Request an introduction. It stays awaiting approval. Switch to the recipient's demo account and explicitly accept; only then does it become an accepted meeting.
 6. In the conference workspace, select **Meet up** on an accepted connection. The map opens in place without asking for meeting approval again. Agree on a landmark, optionally share a self-reported zone through a small permission popup, mark arrival, and independently confirm you met from both accounts. This completes the original meeting and awards each participant +50 demo XP once. Details and private feedback are also available in focused popups.
 
-Every attendee and conversation is fictional demo data. No live AI providers, external attendee records, authentication service, or graph database is configured. The product exposes these integration limits directly. The score is a product heuristic, never a probability of success.
+Conference attendees and twin conversations are fictional demo data. Live Omi captions and Gemini Meaningful Notes editions are optional integrations described below; neither runs until configured and explicitly requested. No external attendee records, authentication service, or graph database is configured. The score is a product heuristic, never a probability of success.
 
 ## Persistence and events
 
@@ -56,7 +56,33 @@ Demo actions: `start-run`, `request-intro` (`matchId`), `decline-match` (`matchI
 
 FalkorDB, Supabase, TrueForge, OpenAI, Bright Data, and Qodo are unconfigured. Evidence paths are derived locally from approved fixture fields, not presented as FalkorDB query results. Agent conversations are clearly labeled seeded replays rather than fabricated provider successes. `meeting.accepted`, `meeting.completed`, and `meeting.feedback_submitted` events contain stable IDs, timestamps, and consent scope. The experience endpoint excludes raw private profiles and negotiation transcripts.
 
-Find Twin includes a clearly labeled fictional venue floor plan and voluntary, expiring zone check-ins. There is no device geolocation, continuous tracking, UWB, audio recording, automated email sending, real prize fulfillment, or magazine generation.
+Find Twin includes a clearly labeled fictional venue floor plan and voluntary, expiring zone check-ins. There is no device geolocation, continuous tracking, UWB, browser audio recording, automated email sending, or real prize fulfillment. Meaningful Notes can receive captions from a separately running Omi audio bridge and optionally generate a private magazine using Gemini.
+
+## Meaningful Notes: during and after the hello
+
+Open **Conversation notes & live Omi** from the meeting map. After completion, **View moment** and the celebration’s **Keep the moment in Meaningful Notes** action open `/event/evt_demo/meetings/:meetingId/fieldnotes`. Each attendee gets their own private reflection, transcript, source-linked edition, and follow-up checklist. Notes can be saved while the meeting is accepted; edition generation requires a completed meeting.
+
+The journal works without external services. Paste plain text (blank lines separate passages), or import a finalized Omi `.jsonl` / `.json` transcript. Partial captions are excluded, source IDs are deduplicated, and recording gaps stay visible. Imports replace the journal transcript. Editing the transcript clears its previous edition on save; edits to a reflection or follow-up checklist preserve it. Download exports the journal as JSON, and Print / save PDF prints the edition.
+
+To connect the [Omi branch’s bridge](https://github.com/yhinai/meaningful/tree/omi), run that bridge separately using its own setup instructions. Set these in this app’s `.env.local`, then restart the app:
+
+```dotenv
+OMI_BRIDGE_URL=http://127.0.0.1:8787
+OMI_BRIDGE_OWNER_USER_ID=usr_self
+# Optional edition generation; choose an available Gemini text model for your account.
+GEMINI_API_KEY=your-server-side-key
+OMI_MAGAZINE_MODEL=your-gemini-model-id
+```
+
+`GOOGLE_API_KEY` is also accepted. `OMI_BRIDGE_URL` must be reachable from the Next.js server. Its `/listen-ws?mode=captions&replay=0` WebSocket is relayed as participant-authorized SSE; the bridge address and key stay server-side. This single-device integration permits only `OMI_BRIDGE_OWNER_USER_ID` to listen. Each account needs its own journal, but a second attendee cannot subscribe to that device. The browser does not capture a microphone or relay raw audio. The existing bridge and Omi phone configuration remain responsible for audio ingestion and Gemini transcription.
+
+Start listening only after the people in the conversation agree. Capture begins with new captions; it does not import historical audio. On reconnect, the stream uses its last event ID for bounded bridge replay. Stop listening, add finalized passages, then save. Partial words remain ephemeral. Stopping the browser subscription does not stop the Omi device or its bridge. Captions not added and saved are lost when leaving the page. You may discard unsaved captions explicitly.
+
+**Make my edition** sends only the saved transcript passages and gap count to the configured Gemini account after the attendee checks the consent box. Private reflections, profiles, location, and twin negotiations are excluded. Generation incurs normal API charges, has a 90-second timeout and no automatic paid retries, validates every cited source ID, and preserves the saved edition on provider or validation failure. A source link establishes traceability, not factual accuracy. No generation runs on page load, and no follow-up messages are sent.
+
+Journals live under a separate per-meeting, per-viewer key in the existing local database. They are absent from the shared demo-state and experience endpoints. Writes use revision checks; a newer edit wins over an in-flight generation. Demo reset clears journals; deleting a profile removes its meeting journals. The same local single-process persistence and demo-cookie identity limits as the rest of the app apply. For production, replace these with authenticated accounts and durable storage, and use a host that supports the long-lived caption response.
+
+Endpoints: `GET` / `PUT` `/api/events/:eventId/meetings/:meetingId/fieldnotes`, `POST` to that endpoint with `{revision,consent:true}` to generate, and `GET .../fieldnotes/live` for captions. `tests/fieldnotes.test.ts` verifies private storage, import validation, source references, failed/concurrent generations, and the actual bridge WebSocket → SSE protocol with a local fixture. Physical Omi capture and paid Gemini generation require configured services and are not claimed by the offline checks.
 
 ## Find Twin: after the digital introduction
 
@@ -71,3 +97,7 @@ The additive SQL migration under `supabase/migrations/` documents the production
 Cloud, Bunny, Cat, Fox, Bear, and Owl are code-native SVG companions with soft gradients, rosy cheeks, breathing, blinking, accessible greetings, and reduced-motion support. Choose your style in the twin overlay; the selection persists locally per demo account. Each attendee has a stable mini twin beside their photo. Working indicators reflect workflow state. See [character design](docs/twin-character.md).
 
 The web typography uses the Apple system font stack with readable captions at 11 CSS pixels or larger and larger body text. These are web design choices inspired by [Apple’s typography guidance](https://developer.apple.com/design/human-interface-guidelines/typography), not a claim of native iOS Dynamic Type support.
+
+### Meaningful Notes demo
+
+The home-page **Meaningful Notes** button opens `/meaningful-notes`, which lists approved conversations and always offers **Try the demo**. Every journal also exposes a demo fallback. `/meaningful-notes/demo` works without meeting records, Omi, Gemini, API keys, or journal requests: **Play demo** simulates two people speaking, types their transcript, shows the magazine preparation stage, then reveals a prepared, source-linked edition. **Skip to magazine**, **Preview the magazine**, and **Replay demo** work independently. All demo content is explicitly fictional and kept in browser memory; it never writes to real journals or calls paid services.

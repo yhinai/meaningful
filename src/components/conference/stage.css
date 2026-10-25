@@ -507,5 +507,5 @@
   }
 }
 
-.conference-circle { height: 640px; background: #fff; }
-@media(max-width:600px) { .conference-circle { height: 650px; } }
+.conference-circle { height: 520px; background: #fff; }
+@media(max-width:600px) { .conference-circle { height: 480px; } }

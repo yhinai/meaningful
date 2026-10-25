@@ -146,6 +146,7 @@ export type DemoState = {
   integrationStatus: Record<string, string>;
 };
 export type Database = {
+  fieldnotes?: Record<string, import("@/features/fieldnotes/model").Fieldnotes>;
   profiles: Record<string, TwinProfile>;
   goals: Record<string, ConferenceGoals>;
   runs: TwinRun[];

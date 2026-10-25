@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import type { DemoState } from "@/lib/types";
 import OrbitalGraph from "@/components/network/graph";
-import { deriveConferenceCircle } from "./graph-state";
+import { chosenConferencePeople, deriveConferenceCircle } from "./graph-state";
 import "./stage.css";
 import { PersonAvatar } from "@/components/ui/avatar";
 import { personFor } from "@/components/connections/model";
@@ -238,6 +238,7 @@ export default function ConferenceGraphStage({
             onTwinSelect={onTwinSelect}
             activeIds={circle.active}
             qualifiedIds={circle.qualified}
+            chosenIds={replay === null ? chosenConferencePeople(state) : [...circle.accepted, ...circle.completed]}
             acceptedIds={circle.accepted}
             completedIds={circle.completed}
             rejectedIds={circle.rejected}

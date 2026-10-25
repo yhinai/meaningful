@@ -162,3 +162,16 @@ export function deriveConferenceCircle(
     rejected: [...rejected],
   };
 }
+
+/** Green means this attendee explicitly chose the introduction, never just an AI suggestion. */
+export function chosenConferencePeople(state: DemoState | null): string[] {
+  if (!state) return [];
+  return [...new Set(state.meetings.flatMap((meeting) => {
+    if (meeting.status === "declined") return [];
+    if (meeting.ownerUserId === state.activeUserId && meeting.requesterAccepted)
+      return [meeting.candidateId];
+    if (meeting.candidateId === state.activeUserId && meeting.recipientAccepted)
+      return [meeting.ownerUserId];
+    return [];
+  }))];
+}

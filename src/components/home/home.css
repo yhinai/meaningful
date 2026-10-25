@@ -353,3 +353,33 @@
     font-size: 16px;
   }
 }
+.welcome-notes-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 49px;
+  border: 1px solid #dedfdc;
+  border-radius: 30px;
+  padding: 0 23px;
+  margin: 10px 0 0 10px;
+  color: #365249;
+  background: #f8f9f5;
+  font-size: 12px;
+  font-weight: 500;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.welcome-notes-button:hover {
+  background: #eef2e9;
+  transform: translateY(-2px);
+}
+@media (max-width: 420px) {
+  .welcome-notes-button {
+    margin-left: 0;
+    display: flex;
+    max-width: 230px;
+    margin: 12px auto 0;
+  }
+}
