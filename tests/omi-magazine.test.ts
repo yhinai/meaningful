@@ -251,3 +251,29 @@ test("real analysis executes approved-segment tool and validates structured outp
     else process.env.OPENAI_MODEL = model;
   }
 });
+
+test("Meaningful Notes handoff imports only finalized words, excluding private reflection", () => {
+  const transcript =
+    JSON.stringify({
+      event_id: "final-1",
+      type: "transcript",
+      text: "Approved source.",
+    }) +
+    "\n" +
+    JSON.stringify({
+      event_id: "draft-1",
+      type: "transcript",
+      is_final: false,
+      text: "Unfinished words.",
+    });
+  assert.deepEqual(
+    parseTranscript(
+      JSON.stringify({
+        transcript,
+        note: "PRIVATE REFLECTION",
+        edition: { title: "Unreviewed summary" },
+      }),
+    ),
+    [{ id: "final-1", text: "Approved source." }],
+  );
+});

@@ -193,15 +193,16 @@ export default function OmiLab() {
                   </button>
                 </div>
                 <p>
-                  Import finalized Omi JSONL or a text transcript. Recording and
-                  transcription consent must already be in place. Review and
-                  remove anything private before analysis.
+                  Import finalized Omi JSONL, a Meaningful Notes download, or a
+                  text transcript. Recording and transcription consent must
+                  already be in place. Review and remove anything private before
+                  analysis.
                 </p>
                 <label className="omi-upload">
                   Import transcript
                   <input
                     type="file"
-                    accept=".txt,.jsonl"
+                    accept=".txt,.jsonl,.json"
                     disabled={busy}
                     onChange={(e) => {
                       const file = e.target.files?.[0];

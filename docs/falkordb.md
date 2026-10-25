@@ -70,3 +70,7 @@ RETURN p LIMIT 80
 ```
 
 The conference fixture and magazine records are separate. Fixture `MET` edges are explicitly synthetic; the magazine importer does not invent real meeting edges from transcript mentions.
+
+### Handoff from the current Meaningful Notes pages
+
+Use **Download** in the existing meeting journal, then import that `.json` file in `/omi-lab`. Only its `transcript` field is extracted; private reflections, counterpart/profile metadata, and previously generated prose are excluded. You review source segments and approve insights again before anything reaches the graph. The existing meeting pages, live captions, Gemini provider configuration, images, and demo continue to operate independently; this lab does not silently copy their data.

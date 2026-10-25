@@ -41,6 +41,23 @@ export const fixtureText =
 // Omi JSONL contains partial events: only finalized transcript records are imported.
 export function parseTranscript(text: string): Segment[] {
   if (text.length > 60_000) throw Error("Import must be smaller than 60 KB.");
+  // Existing Meaningful Notes downloads contain private reflections too. Extract only transcript.
+  if (/^[\[{]/.test(text.trim())) {
+    let document;
+    try {
+      document = JSON.parse(text);
+    } catch {
+      /* May be multiple JSONL records. */
+    }
+    if (
+      document &&
+      !Array.isArray(document) &&
+      typeof document.transcript === "string"
+    )
+      return parseTranscript(document.transcript);
+    if (Array.isArray(document))
+      text = document.map((record) => JSON.stringify(record)).join("\n");
+  }
   const lines = text.split(/\r?\n/).filter((line) => line.trim());
   const segments = lines.flatMap((line, index) => {
     if (line.trim().startsWith("{")) {
@@ -50,7 +67,11 @@ export function parseTranscript(text: string): Segment[] {
       } catch {
         throw Error(`Invalid JSON on line ${index + 1}.`);
       }
-      if (event.type !== "transcript" && event.type !== "final") return [];
+      if (
+        event.is_final === false ||
+        (event.type !== "transcript" && event.type !== "final")
+      )
+        return [];
       if (typeof event.text !== "string")
         throw Error("Final transcript record is missing text.");
       return [
