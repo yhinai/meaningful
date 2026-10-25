@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts"
+    "test": "tsx --test tests/*.test.ts",
+    "sponsor:falkordb": "node --env-file=.env --import tsx scripts/falkordb-check.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.105",
     "@xyflow/react": "^12.9.0",
     "ai": "^7.0.153",
+    "falkordb": "^6.9.2",
     "lucide-react": "^0.468.0",
     "motion": "^12.23.0",
     "next": "^16.0.0",
@@ -28,5 +30,8 @@
     "tailwindcss": "^4.1.0",
     "tsx": "^4.20.0",
     "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { falkorDBConfigured } from "@/features/falkordb/server";
 import SponsorsPage from "@/components/sponsors/SponsorsPage";
 
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export default function Page() {
   // Only availability flags cross the server boundary; never credentials or model settings.
   const has = (key: string) => Boolean(process.env[key]?.trim());
   const configured: Record<string, boolean> = {
+    falkordb: falkorDBConfigured(),
     openai: has("OPENAI_API_KEY"),
     brightdata: has("BRIGHTDATA_API_KEY") && has("BRIGHTDATA_UNLOCKER_ZONE"),
     omi: has("OMI_BRIDGE_URL"),
