@@ -100,6 +100,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <span>The AI networks. The human chooses.</span>
             <div>
               <span className="footer-demo">Fictional conference demo</span>
+              <Link href="/sponsors" aria-current={path === "/sponsors" ? "page" : undefined}>Sponsors</Link>
               <Link href="/settings/privacy">Privacy</Link>
             </div>
           </footer>
