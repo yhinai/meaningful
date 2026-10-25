@@ -174,7 +174,7 @@ export default function ConferenceGraphStage({
               setReplay(null);
               onStart();
             }}
-            disabled={!state || busy || running || exhausted}
+            disabled={!state || busy || (exhausted && !running)}
           >
             {busy || running ? (
               <LoaderCircle size={14} className="conference-scout-spinner" />
@@ -183,7 +183,7 @@ export default function ConferenceGraphStage({
             )}
             <span>
               {running
-                ? "Connecting"
+                ? "View twin activity"
                 : exhausted
                   ? "Everyone explored"
                   : `Scout ${nextCount} new`}

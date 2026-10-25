@@ -27,6 +27,14 @@ export const editionSchema = z.object({
 });
 export type Edition = z.infer<typeof editionSchema>;
 export type Passage = { id: string; text: string; timestamp?: string };
+export type NoteVisual = {
+  url: string;
+  alt: string;
+  kind: "web" | "ai" | "demo";
+  credit: string;
+  sourceUrl?: string;
+  license?: string;
+};
 export type Fieldnotes = {
   revision: number;
   note: string;
@@ -34,6 +42,7 @@ export type Fieldnotes = {
   sources: Passage[];
   gapCount: number;
   edition?: Edition;
+  visuals?: NoteVisual[];
   generatedAt?: string;
   updatedAt?: string;
   completedFollowups: number[];

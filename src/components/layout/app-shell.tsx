@@ -68,10 +68,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <button
             className="shell-twin-button"
             onClick={() => void openTwin()}
-            aria-label="Meet your twin"
+            aria-label="Meet your digital twin"
           >
             <TwinCharacter size={36} mood="idle" style={twinStyle} />
-            <span className="shell-twin-label">Your twin</span>
+            <span className="shell-twin-label">Your Digital Twin</span>
           </button>
         </header>
         <div className="workspace">

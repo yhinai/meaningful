@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -19,7 +20,12 @@ import {
 } from "lucide-react";
 import { Dialog } from "@/components/ui/dialog";
 import NotesDemo from "./NotesDemo";
+import MagazineVisuals from "./MagazineVisuals";
 import { makeDemoJournal } from "@/features/fieldnotes/demo";
+import {
+  fieldnotesPath,
+  fieldnotesMagazinePath,
+} from "@/features/fieldnotes/paths";
 import {
   emptyFieldnotes,
   parseTranscript,
@@ -47,11 +53,17 @@ export default function FieldnotesJournal({
   eventId,
   meetingId,
   demo = false,
+  magazine = false,
 }: {
   eventId: string;
   meetingId: string;
   demo?: boolean;
+  magazine?: boolean;
 }) {
+  const router = useRouter();
+  const magazinePath = demo
+    ? "/meaningful-notes/demo/magazine"
+    : fieldnotesMagazinePath(eventId, meetingId);
   const endpoint = `/api/events/${encodeURIComponent(eventId)}/meetings/${encodeURIComponent(meetingId)}/fieldnotes`;
   const [view, setView] = useState<JournalView | null>(null);
   const [draft, setDraft] = useState<Fieldnotes>(emptyFieldnotes);
@@ -82,7 +94,7 @@ export default function FieldnotesJournal({
     setLoading(true);
     setError("");
     if (demo) {
-      const journal = emptyFieldnotes();
+      const journal = magazine ? makeDemoJournal() : emptyFieldnotes();
       setView({
         journal,
         viewer: "demo",
@@ -107,7 +119,7 @@ export default function FieldnotesJournal({
     } finally {
       setLoading(false);
     }
-  }, [endpoint, demo]);
+  }, [endpoint, demo, magazine]);
   const startDemo = useCallback(() => {
     setDraft(emptyFieldnotes());
     setNotice("");
@@ -176,6 +188,7 @@ export default function FieldnotesJournal({
         applyJournal(result);
         setConsent(false);
         setNotice("Your private edition is ready.");
+        router.push(magazinePath);
       } else
         setNotice(
           demo
@@ -360,7 +373,11 @@ export default function FieldnotesJournal({
       ))}
     </div>
   );
-  const back = "/meaningful-notes";
+  const back = magazine
+    ? demo
+      ? "/meaningful-notes/demo"
+      : fieldnotesPath(eventId, meetingId)
+    : "/meaningful-notes";
   if (loading)
     return (
       <div className="fn-loading" role="status">
@@ -384,7 +401,9 @@ export default function FieldnotesJournal({
     );
 
   return (
-    <div className={`fieldnotes ${demo ? "is-demo" : ""}`}>
+    <div
+      className={`fieldnotes ${demo ? "is-demo" : ""} ${magazine ? "is-magazine" : ""}`}
+    >
       <div className="fn-top">
         <Link
           href={back}
@@ -397,7 +416,8 @@ export default function FieldnotesJournal({
             }
           }}
         >
-          <ArrowLeft size={14} /> Your notes
+          <ArrowLeft size={14} />{" "}
+          {magazine ? "Back to conversation" : "Your notes"}
         </Link>
         <span>
           <ShieldCheck size={13} />{" "}
@@ -427,40 +447,91 @@ export default function FieldnotesJournal({
           </button>
         </div>
       </header>
-      {demo && <NotesDemo onStart={startDemo} onComplete={completeDemo} />}
-      <section className="fn-cover">
-        <span className="fn-kicker">
-          YOUR CONNECTION WITH {view.counterpart.toUpperCase()}
-        </span>
-        <h1>
-          {edition?.title ?? (
+      {demo && !magazine && (
+        <NotesDemo onStart={startDemo} onComplete={completeDemo} />
+      )}
+      {edition && !magazine && (
+        <section className="mn-edition-ready">
+          <BookOpen size={30} strokeWidth={1.2} />
+          <div>
+            <span className="fn-kicker">
+              {demo ? "DEMO MAGAZINE READY" : "YOUR PERSONAL EDITION"}
+            </span>
+            <h2>{edition.title}</h2>
+            <p>
+              Your stories, photographs, takeaways, and next steps have their
+              own reading space.
+            </p>
+            <Link className="fn-button" href={magazinePath}>
+              Open your magazine <ArrowUpRight size={15} />
+            </Link>
+          </div>
+        </section>
+      )}
+      {(!demo || magazine) && (
+        <section
+          className={`fn-cover ${magazine && draft.visuals?.[0] ? "has-photo" : ""}`}
+        >
+          {magazine && draft.visuals?.[0] && (
+            <img
+              className="mn-cover-photo"
+              src={draft.visuals[0].url}
+              alt={draft.visuals[0].alt}
+              referrerPolicy="no-referrer"
+            />
+          )}
+          <span className="fn-kicker">
+            YOUR CONNECTION WITH {view.counterpart.toUpperCase()}
+          </span>
+          <h1>
+            {edition?.title ?? (
+              <>
+                A good conversation.
+                <br />
+                <em>Something to keep.</em>
+              </>
+            )}
+          </h1>
+          <p>
+            {edition?.standfirst ??
+              "The ideas that linger. The things you promised. A little space to turn a meaningful hello into what comes next."}
+          </p>
+          <div className="fn-cover-foot">
+            <span>
+              {view.meetingStatus === "completed"
+                ? "AFTER THE HELLO"
+                : "IN THE MOMENT"}
+            </span>
+            <BookOpen size={22} strokeWidth={1} />
+            <span>
+              {demo
+                ? "ILLUSTRATIVE DEMO EDITION"
+                : edition
+                  ? "YOUR PERSONAL EDITION"
+                  : "A NEW CHAPTER"}
+            </span>
+          </div>
+        </section>
+      )}
+      {magazine && draft.visuals?.[0] && (
+        <p className="mn-photo-credit">
+          {draft.visuals[0].credit}
+          {draft.visuals[0].license && ` · ${draft.visuals[0].license}`}
+          {draft.visuals[0].sourceUrl && (
             <>
-              A good conversation.
-              <br />
-              <em>Something to keep.</em>
+              {" "}
+              ·{" "}
+              <a
+                href={draft.visuals[0].sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Source & license
+              </a>
             </>
           )}
-        </h1>
-        <p>
-          {edition?.standfirst ??
-            "The ideas that linger. The things you promised. A little space to turn a meaningful hello into what comes next."}
         </p>
-        <div className="fn-cover-foot">
-          <span>
-            {view.meetingStatus === "completed"
-              ? "AFTER THE HELLO"
-              : "IN THE MOMENT"}
-          </span>
-          <BookOpen size={22} strokeWidth={1} />
-          <span>
-            {demo
-              ? "ILLUSTRATIVE DEMO EDITION"
-              : edition
-                ? "YOUR PERSONAL EDITION"
-                : "A NEW CHAPTER"}
-          </span>
-        </div>
-      </section>
+      )}
       {error && (
         <div className="fn-alert" role="alert">
           {error}
@@ -475,7 +546,7 @@ export default function FieldnotesJournal({
           {notice}
         </p>
       )}
-      {edition && (
+      {magazine && edition && (
         <div className="fn-edition">
           <section>
             <div className="fn-section-heading">
@@ -500,6 +571,32 @@ export default function FieldnotesJournal({
                     FROM YOUR CONVERSATION · 0{index + 1}
                   </span>
                   <h2>{section.title}</h2>
+                  {draft.visuals?.[index + 1] && (
+                    <figure className="mn-story-photo">
+                      <img
+                        src={draft.visuals[index + 1].url}
+                        alt={draft.visuals[index + 1].alt}
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                      />
+                      <figcaption>
+                        {draft.visuals[index + 1].credit}
+                        {draft.visuals[index + 1].sourceUrl && (
+                          <>
+                            {" "}
+                            ·{" "}
+                            <a
+                              href={draft.visuals[index + 1].sourceUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Source & license
+                            </a>
+                          </>
+                        )}
+                      </figcaption>
+                    </figure>
+                  )}
                   <p>{section.summary}</p>
                   {refs(section.source_ids)}
                 </article>
@@ -513,8 +610,9 @@ export default function FieldnotesJournal({
                 passage to revisit the conversation.
               </p>
               <p>
-                AI-written from your recording. Review the interpretation; a
-                source link does not verify a claim.
+                {demo
+                  ? "Prepared sample edition from a fictional conversation. No AI call was made."
+                  : "AI-written from your recording. Review the interpretation; a source link does not verify a claim."}
               </p>
               {draft.gapCount > 0 && (
                 <p>
@@ -572,161 +670,181 @@ export default function FieldnotesJournal({
           )}
         </div>
       )}
-      <div className="fn-editor-grid">
-        <section className="fn-reflection">
-          <span className="fn-kicker">IN YOUR OWN WORDS</span>
-          <h2>A note to your future self.</h2>
-          <label htmlFor="fn-note">
-            What made this conversation meaningful?
-          </label>
-          <textarea
-            id="fn-note"
-            value={draft.note}
-            disabled={!!busy}
-            maxLength={6000}
-            placeholder="An idea worth exploring. A question to ask next time. Something you don’t want to forget."
-            onChange={(event) =>
-              setDraft((previous) => ({
-                ...previous,
-                note: event.target.value,
-              }))
-            }
-          />
-          <p className="fn-small">
-            Private to your account. Your connection cannot read this.
-          </p>
+      {magazine && !edition && (
+        <section className="mn-edition-ready">
+          <p>Your magazine hasn’t been made yet.</p>
+          <Link className="fn-button" href={back}>
+            Return to your conversation <ArrowUpRight size={14} />
+          </Link>
         </section>
-        <section className="fn-recording">
-          <span className="fn-kicker">LISTEN. REMEMBER. REDISCOVER.</span>
-          <h2>Let the words stay.</h2>
-          <p>
-            Bring in an Omi transcript, or listen during your conversation. Save
-            only what you want to keep.
-          </p>
-          {!demo && (
-            <details
-              className="fn-live"
-              open={recording || captions.length > 0 || undefined}
-            >
-              <summary>
-                <Mic size={15} /> Live from your Omi
-              </summary>
-              <p>
-                Start after everyone in the conversation agrees. This receives
-                captions from your configured Omi bridge; your browser
-                microphone stays off.
-              </p>
-              {view.liveConfigured ? (
-                <>
-                  <button
-                    className={`fn-button ${recording ? "is-listening" : ""}`}
-                    onClick={recording ? stopLive : startLive}
-                    disabled={!!busy}
-                  >
-                    {recording ? <Square size={14} /> : <Mic size={14} />}
-                    {recording ? "Stop listening" : "Start listening"}
-                  </button>
-                  <p role="status" className="fn-small">
-                    {liveStatus}
-                  </p>
-                  <div className="fn-caption-log" role="log" aria-live="off">
-                    {captions.slice(-12).map((item) => (
-                      <p
-                        key={item.event_id}
-                        className={item.type === "gap" ? "fn-gap" : ""}
-                      >
-                        {item.type === "gap" ? "Recording gap: " : ""}
-                        {item.text}
-                      </p>
-                    ))}
-                    {partial && (
-                      <p className="fn-partial">
-                        {partial}
-                        <small>Live draft · words may change</small>
-                      </p>
-                    )}
-                  </div>
-                  {captions.length > 0 && (
-                    <button
-                      className="fn-button fn-secondary"
-                      disabled={recording || !!busy}
-                      onClick={attachCaptions}
-                    >
-                      Add{" "}
-                      {
-                        captions.filter((item) => item.type === "transcript")
-                          .length
-                      }{" "}
-                      finalized{" "}
-                      {captions.filter((item) => item.type === "transcript")
-                        .length === 1
-                        ? "passage"
-                        : "passages"}{" "}
-                      <ArrowUpRight size={14} />
-                    </button>
-                  )}
-                  {!recording && captions.length > 0 && (
-                    <button
-                      className="fn-discard"
-                      disabled={!!busy}
-                      onClick={() => {
-                        captured.current = [];
-                        setCaptions([]);
-                        setNotice("Unsaved captured captions discarded.");
-                      }}
-                    >
-                      Discard unsaved captions
-                    </button>
-                  )}
-                  <p className="fn-small">
-                    Only finalized passages are added. Listening starts now;
-                    earlier recordings are not imported. Stop, add passages,
-                    then save before leaving.
-                  </p>
-                </>
-              ) : (
-                <p className="fn-small">
-                  Live Omi hasn’t been connected to this account yet. You can
-                  import a transcript below.
-                </p>
-              )}
-            </details>
-          )}
-          <div className="fn-transcript-head">
-            <label htmlFor="fn-transcript">Conversation transcript</label>
-            <button
-              disabled={!!busy || recording}
-              onClick={() => fileInput.current?.click()}
-            >
-              <Upload size={13} /> Import
-            </button>
-            <input
-              ref={fileInput}
-              type="file"
-              accept=".txt,.jsonl,.json,text/plain,application/json"
-              hidden
-              onChange={(event) => void importFile(event.target.files?.[0])}
+      )}
+      {magazine && edition && !demo && (
+        <MagazineVisuals
+          endpoint={`${endpoint}/images`}
+          revision={draft.revision}
+          disabled={dirty || !!busy}
+          onChange={applyJournal}
+        />
+      )}
+      {!magazine && (
+        <div className="fn-editor-grid">
+          <section className="fn-reflection">
+            <span className="fn-kicker">IN YOUR OWN WORDS</span>
+            <h2>A note to your future self.</h2>
+            <label htmlFor="fn-note">
+              What made this conversation meaningful?
+            </label>
+            <textarea
+              id="fn-note"
+              value={draft.note}
+              disabled={!!busy}
+              maxLength={6000}
+              placeholder="An idea worth exploring. A question to ask next time. Something you don’t want to forget."
+              onChange={(event) =>
+                setDraft((previous) => ({
+                  ...previous,
+                  note: event.target.value,
+                }))
+              }
             />
-          </div>
-          <textarea
-            id="fn-transcript"
-            disabled={!!busy || recording}
-            maxLength={60000}
-            value={draft.transcript}
-            onChange={(event) =>
-              setDraft((previous) => ({
-                ...previous,
-                transcript: event.target.value,
-              }))
-            }
-            placeholder="Paste finalized words here, or import an Omi JSONL export. Separate plain text passages with a blank line."
-          />
-          <p className="fn-small">
-            Up to 60,000 characters. Only include this meeting’s conversation.
-            Changing the transcript replaces its edition after saving.
-          </p>
-        </section>
-      </div>
+            <p className="fn-small">
+              {demo
+                ? "Demo note. Kept in this tab for this session only."
+                : "Private to your account. Your connection cannot read this."}
+            </p>
+          </section>
+          <section className="fn-recording">
+            <span className="fn-kicker">LISTEN. REMEMBER. REDISCOVER.</span>
+            <h2>Let the words stay.</h2>
+            <p>
+              Bring in an Omi transcript, or listen during your conversation.
+              Save only what you want to keep.
+            </p>
+            {!demo && (
+              <details
+                className="fn-live"
+                open={recording || captions.length > 0 || undefined}
+              >
+                <summary>
+                  <Mic size={15} /> Live from your Omi
+                </summary>
+                <p>
+                  Start after everyone in the conversation agrees. This receives
+                  captions from your configured Omi bridge; your browser
+                  microphone stays off.
+                </p>
+                {view.liveConfigured ? (
+                  <>
+                    <button
+                      className={`fn-button ${recording ? "is-listening" : ""}`}
+                      onClick={recording ? stopLive : startLive}
+                      disabled={!!busy}
+                    >
+                      {recording ? <Square size={14} /> : <Mic size={14} />}
+                      {recording ? "Stop listening" : "Start listening"}
+                    </button>
+                    <p role="status" className="fn-small">
+                      {liveStatus}
+                    </p>
+                    <div className="fn-caption-log" role="log" aria-live="off">
+                      {captions.slice(-12).map((item) => (
+                        <p
+                          key={item.event_id}
+                          className={item.type === "gap" ? "fn-gap" : ""}
+                        >
+                          {item.type === "gap" ? "Recording gap: " : ""}
+                          {item.text}
+                        </p>
+                      ))}
+                      {partial && (
+                        <p className="fn-partial">
+                          {partial}
+                          <small>Live draft · words may change</small>
+                        </p>
+                      )}
+                    </div>
+                    {captions.length > 0 && (
+                      <button
+                        className="fn-button fn-secondary"
+                        disabled={recording || !!busy}
+                        onClick={attachCaptions}
+                      >
+                        Add{" "}
+                        {
+                          captions.filter((item) => item.type === "transcript")
+                            .length
+                        }{" "}
+                        finalized{" "}
+                        {captions.filter((item) => item.type === "transcript")
+                          .length === 1
+                          ? "passage"
+                          : "passages"}{" "}
+                        <ArrowUpRight size={14} />
+                      </button>
+                    )}
+                    {!recording && captions.length > 0 && (
+                      <button
+                        className="fn-discard"
+                        disabled={!!busy}
+                        onClick={() => {
+                          captured.current = [];
+                          setCaptions([]);
+                          setNotice("Unsaved captured captions discarded.");
+                        }}
+                      >
+                        Discard unsaved captions
+                      </button>
+                    )}
+                    <p className="fn-small">
+                      Only finalized passages are added. Listening starts now;
+                      earlier recordings are not imported. Stop, add passages,
+                      then save before leaving.
+                    </p>
+                  </>
+                ) : (
+                  <p className="fn-small">
+                    Live Omi hasn’t been connected to this account yet. You can
+                    import a transcript below.
+                  </p>
+                )}
+              </details>
+            )}
+            <div className="fn-transcript-head">
+              <label htmlFor="fn-transcript">Conversation transcript</label>
+              <button
+                disabled={!!busy || recording}
+                onClick={() => fileInput.current?.click()}
+              >
+                <Upload size={13} /> Import
+              </button>
+              <input
+                ref={fileInput}
+                type="file"
+                accept=".txt,.jsonl,.json,text/plain,application/json"
+                hidden
+                onChange={(event) => void importFile(event.target.files?.[0])}
+              />
+            </div>
+            <textarea
+              id="fn-transcript"
+              disabled={!!busy || recording}
+              maxLength={60000}
+              value={draft.transcript}
+              onChange={(event) =>
+                setDraft((previous) => ({
+                  ...previous,
+                  transcript: event.target.value,
+                }))
+              }
+              placeholder="Paste finalized words here, or import an Omi JSONL export. Separate plain text passages with a blank line."
+            />
+            <p className="fn-small">
+              Up to 60,000 characters. Only include this meeting’s conversation.
+              Changing the transcript replaces its edition after saving.
+            </p>
+          </section>
+        </div>
+      )}
       <section className="fn-save">
         <div>
           <span className="fn-kicker">
@@ -752,10 +870,16 @@ export default function FieldnotesJournal({
           ) : (
             <Save size={15} />
           )}{" "}
-          Save privately
+          {magazine
+            ? demo
+              ? "Keep demo progress"
+              : "Save follow-up progress"
+            : demo
+              ? "Keep demo note"
+              : "Save privately"}
         </button>
       </section>
-      {!demo && (
+      {!demo && !magazine && (
         <section className="fn-generate">
           <div>
             <h2>Make your edition.</h2>

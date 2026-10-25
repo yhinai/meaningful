@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import {
   BookOpen,
   Check,
@@ -80,7 +81,7 @@ export default function NotesDemo({
             ? "Simulating live transcription. Words appear as each person speaks."
             : stage === "generating"
               ? "Simulating the editor: connecting ideas, checking passages, and gathering next steps."
-              : "Your sample magazine is below. Open its citations, explore the takeaways, or play it again."}
+              : "Your sample magazine is ready on its own page, with photos, stories, citations, and next steps."}
       </p>
       <ol className="mn-demo-steps" aria-label="Demo progress">
         {["Conversation", "Making your magazine", "Your edition"].map(
@@ -163,11 +164,16 @@ export default function NotesDemo({
       )}
       {stage === "ready" && (
         <p className="mn-demo-ready" role="status">
-          <Check size={16} /> Your sample edition is ready. Scroll down to read
-          it.
+          <Check size={16} /> Your sample edition is ready. Open your magazine
+          to read it.
         </p>
       )}
       <div className="mn-demo-actions">
+        {stage === "ready" && (
+          <Link className="fn-button" href="/meaningful-notes/demo/magazine">
+            <BookOpen size={15} /> Open your magazine
+          </Link>
+        )}
         {stage === "idle" || stage === "ready" ? (
           <button className="fn-button" onClick={start}>
             {stage === "ready" ? <RotateCcw size={15} /> : <Play size={15} />}
@@ -179,9 +185,9 @@ export default function NotesDemo({
           </button>
         )}
         {stage === "idle" && (
-          <button className="mn-demo-skip" onClick={finish}>
+          <Link className="mn-demo-skip" href="/meaningful-notes/demo/magazine">
             Preview the magazine
-          </button>
+          </Link>
         )}
       </div>
       <p className="fn-small">

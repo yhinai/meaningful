@@ -79,7 +79,11 @@ export async function saveJournal(
       revision: prior.revision + 1,
       updatedAt: new Date().toISOString(),
       ...(!changed && prior.edition
-        ? { edition: prior.edition, generatedAt: prior.generatedAt }
+        ? {
+            edition: prior.edition,
+            generatedAt: prior.generatedAt,
+            visuals: prior.visuals,
+          }
         : {}),
       completedFollowups: changed
         ? []

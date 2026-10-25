@@ -391,7 +391,7 @@ async function executeRun(runId: string) {
     if (!run || run.status !== "running") return;
     for (let i = run.discoveredCount; i < run.rankings.length; i++) {
       const ranking = run.rankings[i];
-      await pause(180);
+      await pause(550);
       if (
         !(await step(
           runId,
@@ -476,7 +476,7 @@ async function executeRun(runId: string) {
         (message) => message.candidateId === person.id,
       ).length;
       for (let turn = existing; turn < 6; turn++) {
-        await pause(220);
+        await pause(850);
         await step(
           runId,
           "twin.message",

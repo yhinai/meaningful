@@ -102,6 +102,20 @@ export function makeDemoJournal(): Fieldnotes {
     sources: demoSources,
     gapCount: 0,
     edition: demoEdition,
+    visuals: [
+      {
+        url: "/meaningful-notes/conversation.jpg",
+        alt: "Two fictional professionals sharing a thoughtful conversation in a sunlit cafe",
+        kind: "demo",
+        credit: "AI-created conceptual photograph · fictional scene",
+      },
+      {
+        url: "/meaningful-notes/notebook.jpg",
+        alt: "An open notebook, green coffee cup and pen on a sunlit cafe table",
+        kind: "demo",
+        credit: "AI-created conceptual photograph · fictional scene",
+      },
+    ],
     completedFollowups: [],
   };
 }

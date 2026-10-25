@@ -18,6 +18,7 @@ import { PersonAvatar } from "@/components/ui/avatar";
 import { deriveConnections, type Connection } from "./model";
 import { useConnections } from "./use-connections";
 import ConferenceGraphStage from "@/components/conference/ConferenceGraphStage";
+import ScoutActivityOverlay from "@/components/conference/ScoutActivityOverlay";
 import ConferencePeopleRail from "@/components/conference/ConferencePeopleRail";
 import CandidateDetails from "@/components/conference/CandidateDetails";
 import TwinPreview from "@/components/conference/TwinPreview";
@@ -49,6 +50,16 @@ export default function ConnectionsHub({
 }) {
   const { state, error, busy, refresh, act } = useConnections();
   const router = useRouter();
+  const [scoutOpen, setScoutOpen] = useState(false);
+  const [scoutRunId, setScoutRunId] = useState<string | null>(null);
+  async function startScout() {
+    const active = state?.runs.find((run) => run.ownerUserId === state.activeUserId && run.status === "running");
+    setScoutRunId(active?.id ?? null);
+    setScoutOpen(true);
+    if (active) return;
+    const updated = await act({ action: "start-run" });
+    if (updated) setScoutRunId(updated.runs.filter((run) => run.ownerUserId === updated.activeUserId).at(-1)?.id ?? null);
+  }
   const [popup, setPopup] = useState<Popup>(null);
   const [popupOpen, setPopupOpen] = useState(false);
   const cachedSelection = useRef<Connection | undefined>(undefined);
@@ -162,7 +173,7 @@ export default function ConnectionsHub({
           onTwinSelect={() =>
             state && showPopup({ type: "twin", personId: state.activeUserId })
           }
-          onStart={() => void act({ action: "start-run" })}
+          onStart={() => void startScout()}
           busy={busy}
           error={error}
           onRetry={() => void refresh()}
@@ -225,6 +236,8 @@ export default function ConnectionsHub({
           <CandidateDetails person={candidate} state={state} />
         )}
       </Dialog>
+      <ScoutActivityOverlay open={scoutOpen} onClose={() => setScoutOpen(false)}
+        state={state} runId={scoutRunId} error={error} onRetry={() => void startScout()} />
       <Dialog
         open={popupOpen && popup?.type === "twin" && !!state}
         onClose={close}

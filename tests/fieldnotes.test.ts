@@ -7,6 +7,10 @@ import { createServer } from "node:http";
 import { createHash } from "node:crypto";
 import { NextRequest } from "next/server";
 import {
+  makeDemoJournal,
+  demoConversation,
+} from "../src/features/fieldnotes/demo";
+import {
   parseTranscript,
   validateEdition,
   type Edition,
@@ -512,4 +516,21 @@ test("private journal lifecycle, HTTP access, generation conflicts, and live bri
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
+});
+
+test("the standalone Meaningful Notes demo has complete, traceable fictional evidence", () => {
+  const demo = makeDemoJournal();
+  assert.equal(demo.sources.length, demoConversation.length);
+  assert.equal(
+    parseTranscript(demo.transcript).sources.length,
+    demoConversation.length,
+  );
+  assert.deepEqual(validateEdition(demo.edition, demo.sources), demo.edition);
+  assert.ok(demo.edition!.followups.some((item) => item.kind === "commitment"));
+  assert.ok(demo.edition!.followups.some((item) => item.kind === "suggestion"));
+  const second = makeDemoJournal();
+  demo.note = "A local demo edit";
+  demo.completedFollowups.push(0);
+  assert.equal(second.note, "");
+  assert.deepEqual(second.completedFollowups, []);
 });
