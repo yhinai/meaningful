@@ -100,6 +100,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <span>The AI networks. The human chooses.</span>
             <div>
               <span className="footer-demo">Fictional conference demo</span>
+              <Link href="/omi-lab">Omi journal</Link>
               <Link href="/settings/privacy">Privacy</Link>
             </div>
           </footer>
@@ -111,7 +112,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         title="A little more you."
       >
         <div className="shell-twin-profile">
-          <TwinCharacter size={140} mood="happy" interactive style={twinStyle} />
+          <TwinCharacter
+            size={140}
+            mood="happy"
+            interactive
+            style={twinStyle}
+          />
           <TwinStylePicker value={twinStyle} onChange={setTwinStyle} />
           <h3>
             {profile

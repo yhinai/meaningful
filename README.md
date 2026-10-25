@@ -54,7 +54,7 @@ Demo actions: `start-run`, `request-intro` (`matchId`), `decline-match` (`matchI
 
 ## Integration boundaries
 
-FalkorDB, Supabase, TrueForge, OpenAI, Bright Data, and Qodo are unconfigured. Evidence paths are derived locally from approved fixture fields, not presented as FalkorDB query results. Agent conversations are clearly labeled seeded replays rather than fabricated provider successes. `meeting.accepted`, `meeting.completed`, and `meeting.feedback_submitted` events contain stable IDs, timestamps, and consent scope. The experience endpoint excludes raw private profiles and negotiation transcripts.
+The core networking demo leaves FalkorDB, Supabase, TrueForge, OpenAI, Bright Data, and Qodo unconfigured. The separate token-protected `/omi-lab` supports configured FalkorDB and OpenAI connections; see its setup below. Evidence paths are derived locally from approved fixture fields, not presented as FalkorDB query results. Agent conversations are clearly labeled seeded replays rather than fabricated provider successes. `meeting.accepted`, `meeting.completed`, and `meeting.feedback_submitted` events contain stable IDs, timestamps, and consent scope. The experience endpoint excludes raw private profiles and negotiation transcripts.
 
 Find Twin includes a clearly labeled fictional venue floor plan and voluntary, expiring zone check-ins. There is no device geolocation, continuous tracking, UWB, browser audio recording, automated email sending, or real prize fulfillment. Meaningful Notes can receive captions from a separately running Omi audio bridge and optionally generate a private magazine using Gemini.
 
@@ -109,3 +109,7 @@ The conversation journal and magazine are separate pages. After making an editio
 On real magazines, expand **Pictures for your edition** to search Wikimedia Commons by a public subject, inspect credits and licenses, and select a cover. Searches exclude unrecognized image hosts and non-reusable license categories; check each linked source for its reuse conditions. Selected photos and their credits persist with the private edition. Newly selected pictures become the cover; up to two earlier pictures appear with feature stories.
 
 For AI image generation, configure `GEMINI_API_KEY` (or `GOOGLE_API_KEY`) and `OMI_MAGAZINE_IMAGE_MODEL` with an available image-capable Gemini model. **Generate AI image** requires separate consent and incurs normal API charges. It sends only the public subject words, not the transcript or private reflection. Generated images are labeled conceptual, capped at 4 MiB each, and kept with the private journal (up to three images). No image generation runs automatically. Failed images preserve the magazine. Online-photo search works without a Gemini key. Existing local JSON-storage and demo-cookie limits still apply.
+
+### Omi private journal and FalkorDB
+
+The isolated `/omi-lab` workspace connects directly to live Omi captions and reviews finalized imports, extracts evidence-linked insights, and creates a private two-page magazine with optional FalkorDB synchronization. It is a token-protected single-operator lab; fictional extraction works offline, while real analysis requires OpenAI credentials. Public sharing is disabled. See [setup, verification, and current limitations](docs/falkordb.md).

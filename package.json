@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts"
+    "test": "tsx --test tests/*.test.ts",
+    "falkordb:verify": "node scripts/falkordb-setup.mjs",
+    "omi:verify-live": "node scripts/omi-verify-live.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.105",
@@ -18,7 +20,9 @@
     "next": "^16.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "zod": "^4.1.0"
+    "zod": "^4.1.0",
+    "dotenv": "^18.0.9",
+    "falkordb": "^6.9.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.0",
