@@ -35,7 +35,7 @@ npm run start -- --hostname 127.0.0.1 --port 3007
 
 Open `http://127.0.0.1:3007/omi-lab` (also linked from the app footer). Enter `OMI_LAB_TOKEN` from this checkout's ignored `.env`. Keep the token private; it is held in browser memory and cleared by Lock. This is a **single-operator lab**, not multi-user authentication. No public magazine route or sharing link is provided. A production account/authorization adapter is still required before opening access to attendees.
 
-1. Choose the fictional sample, or import an Omi finalized transcript. The existing bridge exports `logs/omi_transcript_events.jsonl`; use a short selection, up to 60 KB/80 segments. This is a manual import, not an always-on subscription. JSONL partials and gap events are excluded. Plain text is treated as finalized, user-supplied text.
+1. Choose the fictional sample, or import an Omi finalized transcript. The existing bridge exports `logs/omi_transcript_events.jsonl`; use a short selection, up to 60 KB/80 segments. Manual import is available; you can also use the explicit live connection described below. JSONL partials and gap events are excluded. Plain text is treated as finalized, user-supplied text.
 2. Edit/redact source text and review segments. Remove sensitive segments, then explicitly approve analysis. Recording and STT processing consent must already exist: this review cannot retroactively authorize the bridge's earlier Gemini processing.
 3. Fictional samples use a deterministic local extractor, clearly marked **DEMO ONLY**. Real imports require server-side `OPENAI_API_KEY` and `OPENAI_MODEL`; they use the Responses API with an actual `getApprovedTranscriptSegments` tool exchange, strict structured output, source/quote validation, two requests maximum, and a 40-second deadline. No automatic retry or silent demo fallback occurs. Live OpenAI execution has not been verified without credentials. TrueForge orchestration is not integrated.
 4. Review/edit insight descriptions and check the ones to keep. Approval creates a private, light-theme, two-page magazine. Only evidence supporting approved insights is saved. Saved editions can be reopened and exported privately.
@@ -74,3 +74,13 @@ The conference fixture and magazine records are separate. Fixture `MET` edges ar
 ### Handoff from the current Meaningful Notes pages
 
 Use **Download** in the existing meeting journal, then import that `.json` file in `/omi-lab`. Only its `transcript` field is extracted; private reflections, counterpart/profile metadata, and previously generated prose are excluded. You review source segments and approve insights again before anything reaches the graph. The existing meeting pages, live captions, Gemini provider configuration, images, and demo continue to operate independently; this lab does not silently copy their data.
+
+## Direct live Omi connection
+
+Set server-only `OMI_BRIDGE_URL=http://127.0.0.1:8787` (configured in this checkout) and restart MeaningfulMeet. In `/omi-lab`, unlock the operator workspace, confirm everyone present agreed to transcription, and choose **Connect Omi**. The existing meeting journal connector also uses this address and remains restricted to `OMI_BRIDGE_OWNER_USER_ID=usr_self`.
+
+The operator lab receives authenticated SSE backed by the same caption-only WebSocket relay as meeting journals. It shows partial words immediately and keeps finalized passages in browser memory. **Stop listening**, then **Use captured words for review** to approve/redact them before analysis or graph persistence. This replaces the editable import draft; it does not silently merge or save it. Gaps remain visible during capture and are excluded as textual evidence.
+
+First connection and a manually restarted session request new captions only. Automatic reconnect can replay after the last received event ID; duplicate IDs are ignored. Locking or leaving the workspace cancels the stream. Capture is bounded to 80 events / about 55 KB. Stopping the journal subscription does not stop Omi recording or Gemini STT in the bridge.
+
+Verified against the running bridge: live status SSE received, and a finalized real bridge event resumed through the new authenticated endpoint with matching text and event ID. The Focus page at `http://127.0.0.1:8788/focus` remains its independent live reader; it does not become the magazine workspace.

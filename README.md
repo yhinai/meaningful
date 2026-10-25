@@ -112,4 +112,4 @@ For AI image generation, configure `GEMINI_API_KEY` (or `GOOGLE_API_KEY`) and `O
 
 ### Omi private journal and FalkorDB
 
-The isolated `/omi-lab` workspace reviews finalized Omi imports, extracts evidence-linked insights, and creates a private two-page magazine with optional FalkorDB synchronization. It is a token-protected single-operator lab; fictional extraction works offline, while real analysis requires OpenAI credentials. Public sharing is disabled. See [setup, verification, and current limitations](docs/falkordb.md).
+The isolated `/omi-lab` workspace connects directly to live Omi captions and reviews finalized imports, extracts evidence-linked insights, and creates a private two-page magazine with optional FalkorDB synchronization. It is a token-protected single-operator lab; fictional extraction works offline, while real analysis requires OpenAI credentials. Public sharing is disabled. See [setup, verification, and current limitations](docs/falkordb.md).

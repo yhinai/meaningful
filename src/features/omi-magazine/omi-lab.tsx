@@ -8,6 +8,7 @@ import {
   type Edition,
 } from "./model";
 import "./omi-lab.css";
+import LiveCapture from "./live-capture";
 
 type Paths = { path: string; quote: string; segment: string }[];
 export default function OmiLab() {
@@ -184,211 +185,224 @@ export default function OmiLab() {
             <span>03 Read your day</span>
           </nav>
           {!edition ? (
-            <div className="omi-workflow">
-              <section>
-                <div className="omi-section-top">
-                  <h2>Start with the source.</h2>
-                  <button disabled={busy} onClick={demo}>
-                    Try a fictional day
-                  </button>
-                </div>
-                <p>
-                  Import finalized Omi JSONL, a Meaningful Notes download, or a
-                  text transcript. Recording and transcription consent must
-                  already be in place. Review and remove anything private before
-                  analysis.
-                </p>
-                <label className="omi-upload">
-                  Import transcript
-                  <input
-                    type="file"
-                    accept=".txt,.jsonl,.json"
+            <>
+              <LiveCapture
+                token={token}
+                disabled={busy}
+                onUse={(value) => {
+                  setText(value);
+                  setSource("omi-import");
+                  review(value);
+                }}
+              />
+              <div className="omi-workflow">
+                <section>
+                  <div className="omi-section-top">
+                    <h2>Start with the source.</h2>
+                    <button disabled={busy} onClick={demo}>
+                      Try a fictional day
+                    </button>
+                  </div>
+                  <p>
+                    Import finalized Omi JSONL, a Meaningful Notes download, or
+                    a text transcript. Recording and transcription consent must
+                    already be in place. Review and remove anything private
+                    before analysis.
+                  </p>
+                  <label className="omi-upload">
+                    Import transcript
+                    <input
+                      type="file"
+                      accept=".txt,.jsonl,.json"
+                      disabled={busy}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file)
+                          void run(async () => {
+                            if (file.size > 60_000)
+                              throw Error("Import must be smaller than 60 KB.");
+                            const value = await file.text();
+                            setText(value);
+                            setSource("omi-import");
+                            review(value);
+                          });
+                        e.target.value = "";
+                      }}
+                    />
+                  </label>
+                  <label htmlFor="omi-source">
+                    Editable source ·{" "}
+                    {source === "synthetic" ? "FICTIONAL SAMPLE" : "OMI IMPORT"}
+                  </label>
+                  <textarea
+                    id="omi-source"
+                    value={text}
                     disabled={busy}
+                    placeholder="Paste finalized speech here…"
                     onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file)
-                        void run(async () => {
-                          if (file.size > 60_000)
-                            throw Error("Import must be smaller than 60 KB.");
-                          const value = await file.text();
-                          setText(value);
-                          setSource("omi-import");
-                          review(value);
-                        });
-                      e.target.value = "";
+                      setText(e.target.value);
+                      setSource("omi-import");
+                      setSegments([]);
+                      resetAnalysis();
                     }}
                   />
-                </label>
-                <label htmlFor="omi-source">
-                  Editable source ·{" "}
-                  {source === "synthetic" ? "FICTIONAL SAMPLE" : "OMI IMPORT"}
-                </label>
-                <textarea
-                  id="omi-source"
-                  value={text}
-                  disabled={busy}
-                  placeholder="Paste finalized speech here…"
-                  onChange={(e) => {
-                    setText(e.target.value);
-                    setSource("omi-import");
-                    setSegments([]);
-                    resetAnalysis();
-                  }}
-                />
-                <button
-                  disabled={busy || !text.trim()}
-                  onClick={() => review(text)}
-                >
-                  Review segments
-                </button>
-                {segments.length > 0 && (
-                  <div className="omi-segments">
-                    {segments.map((segment) => (
-                      <article key={segment.id}>
-                        <small>{segment.id}</small>
-                        <p>{segment.text}</p>
-                        <button
-                          aria-label={`Remove ${segment.id}`}
-                          disabled={busy}
-                          onClick={() => {
-                            setSegments(
-                              segments.filter((s) => s.id !== segment.id),
-                            );
-                            resetAnalysis();
-                          }}
-                        >
-                          Remove
-                        </button>
-                      </article>
-                    ))}
-                  </div>
-                )}
-                <label className="omi-check">
-                  <input
-                    type="checkbox"
-                    checked={consent}
-                    disabled={busy || !segments.length}
-                    onChange={(e) => setConsent(e.target.checked)}
-                  />
-                  I reviewed these segments and approve sending only these words
-                  for AI analysis. Fictional samples run locally.
-                </label>
-                <button
-                  className="omi-primary"
-                  disabled={busy || !consent || !segments.length}
-                  onClick={() =>
-                    void run(async () => {
-                      const result = await api("analyze", {
-                        source,
-                        segments,
-                        analysisConsent: true,
-                      });
-                      setInsights(result.insights);
-                      setSelected([]);
-                      setProvider(result.provider);
-                      setTrace(result.trace);
-                    })
-                  }
-                >
-                  Find the highlights
-                </button>
-              </section>
-              <section>
-                <h2>Keep what feels true.</h2>
-                <p>
-                  Review each suggested insight. Only checked insights and their
-                  evidence are saved. Suggestions remain suggestions.
-                </p>
-                {provider && <small className="omi-provider">{provider}</small>}
-                {!insights.length && (
-                  <p className="omi-empty">
-                    Your highlights will appear here after analysis.
+                  <button
+                    disabled={busy || !text.trim()}
+                    onClick={() => review(text)}
+                  >
+                    Review segments
+                  </button>
+                  {segments.length > 0 && (
+                    <div className="omi-segments">
+                      {segments.map((segment) => (
+                        <article key={segment.id}>
+                          <small>{segment.id}</small>
+                          <p>{segment.text}</p>
+                          <button
+                            aria-label={`Remove ${segment.id}`}
+                            disabled={busy}
+                            onClick={() => {
+                              setSegments(
+                                segments.filter((s) => s.id !== segment.id),
+                              );
+                              resetAnalysis();
+                            }}
+                          >
+                            Remove
+                          </button>
+                        </article>
+                      ))}
+                    </div>
+                  )}
+                  <label className="omi-check">
+                    <input
+                      type="checkbox"
+                      checked={consent}
+                      disabled={busy || !segments.length}
+                      onChange={(e) => setConsent(e.target.checked)}
+                    />
+                    I reviewed these segments and approve sending only these
+                    words for AI analysis. Fictional samples run locally.
+                  </label>
+                  <button
+                    className="omi-primary"
+                    disabled={busy || !consent || !segments.length}
+                    onClick={() =>
+                      void run(async () => {
+                        const result = await api("analyze", {
+                          source,
+                          segments,
+                          analysisConsent: true,
+                        });
+                        setInsights(result.insights);
+                        setSelected([]);
+                        setProvider(result.provider);
+                        setTrace(result.trace);
+                      })
+                    }
+                  >
+                    Find the highlights
+                  </button>
+                </section>
+                <section>
+                  <h2>Keep what feels true.</h2>
+                  <p>
+                    Review each suggested insight. Only checked insights and
+                    their evidence are saved. Suggestions remain suggestions.
                   </p>
-                )}
-                {insights.map((insight) => (
-                  <article className="omi-insight" key={insight.id}>
-                    <label className="omi-check">
-                      <input
-                        type="checkbox"
-                        disabled={busy}
-                        checked={selected.includes(insight.id)}
-                        onChange={(e) =>
-                          setSelected(
-                            e.target.checked
-                              ? [...selected, insight.id]
-                              : selected.filter((id) => id !== insight.id),
-                          )
-                        }
-                      />
-                      <strong>{insight.title}</strong>
-                    </label>
-                    <label>
-                      Description
-                      <textarea
-                        disabled={busy}
-                        value={insight.description}
-                        onChange={(e) =>
-                          setInsights(
-                            insights.map((i) =>
-                              i.id === insight.id
-                                ? { ...i, description: e.target.value }
-                                : i,
-                            ),
-                          )
-                        }
-                      />
-                    </label>
-                    <small>
-                      {insight.kind.replace("_", " ")} · {insight.confidence}
-                    </small>
-                    <details>
-                      <summary>View source evidence</summary>
-                      {insight.evidenceSegmentIds.map((id) => (
-                        <blockquote key={id}>
-                          {segments.find((s) => s.id === id)?.text}
-                          <cite>{id}</cite>
-                        </blockquote>
-                      ))}
-                    </details>
-                  </article>
-                ))}
-                {trace.length > 0 && (
-                  <details>
-                    <summary>Analysis trace</summary>
-                    <ul>
-                      {trace.map((line) => (
-                        <li key={line}>{line}</li>
-                      ))}
-                    </ul>
-                    <p>
-                      TrueForge is not integrated. Live analysis uses OpenAI
-                      directly.
+                  {provider && (
+                    <small className="omi-provider">{provider}</small>
+                  )}
+                  {!insights.length && (
+                    <p className="omi-empty">
+                      Your highlights will appear here after analysis.
                     </p>
-                  </details>
-                )}
-                <button
-                  className="omi-primary"
-                  disabled={busy || !approved.length}
-                  onClick={() =>
-                    void run(async () => {
-                      const result = await api("generate", {
-                        source,
-                        segments,
-                        analysisConsent: true,
-                        insights: approved,
-                        approval: true,
-                      });
-                      setEdition(result.edition);
-                      setSaved((await api()).editions);
-                      setPage(1);
-                      setPaths([]);
-                    })
-                  }
-                >
-                  Approve & create private edition
-                </button>
-              </section>
-            </div>
+                  )}
+                  {insights.map((insight) => (
+                    <article className="omi-insight" key={insight.id}>
+                      <label className="omi-check">
+                        <input
+                          type="checkbox"
+                          disabled={busy}
+                          checked={selected.includes(insight.id)}
+                          onChange={(e) =>
+                            setSelected(
+                              e.target.checked
+                                ? [...selected, insight.id]
+                                : selected.filter((id) => id !== insight.id),
+                            )
+                          }
+                        />
+                        <strong>{insight.title}</strong>
+                      </label>
+                      <label>
+                        Description
+                        <textarea
+                          disabled={busy}
+                          value={insight.description}
+                          onChange={(e) =>
+                            setInsights(
+                              insights.map((i) =>
+                                i.id === insight.id
+                                  ? { ...i, description: e.target.value }
+                                  : i,
+                              ),
+                            )
+                          }
+                        />
+                      </label>
+                      <small>
+                        {insight.kind.replace("_", " ")} · {insight.confidence}
+                      </small>
+                      <details>
+                        <summary>View source evidence</summary>
+                        {insight.evidenceSegmentIds.map((id) => (
+                          <blockquote key={id}>
+                            {segments.find((s) => s.id === id)?.text}
+                            <cite>{id}</cite>
+                          </blockquote>
+                        ))}
+                      </details>
+                    </article>
+                  ))}
+                  {trace.length > 0 && (
+                    <details>
+                      <summary>Analysis trace</summary>
+                      <ul>
+                        {trace.map((line) => (
+                          <li key={line}>{line}</li>
+                        ))}
+                      </ul>
+                      <p>
+                        TrueForge is not integrated. Live analysis uses OpenAI
+                        directly.
+                      </p>
+                    </details>
+                  )}
+                  <button
+                    className="omi-primary"
+                    disabled={busy || !approved.length}
+                    onClick={() =>
+                      void run(async () => {
+                        const result = await api("generate", {
+                          source,
+                          segments,
+                          analysisConsent: true,
+                          insights: approved,
+                          approval: true,
+                        });
+                        setEdition(result.edition);
+                        setSaved((await api()).editions);
+                        setPage(1);
+                        setPaths([]);
+                      })
+                    }
+                  >
+                    Approve & create private edition
+                  </button>
+                </section>
+              </div>
+            </>
           ) : (
             <section className="omi-edition-wrap">
               <div className="omi-section-top">

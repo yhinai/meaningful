@@ -48,6 +48,9 @@ export async function GET(request: Request) {
         ? "Configured · not yet verified"
         : "Not configured",
     trueforge: "Not integrated",
+    omi: process.env.OMI_BRIDGE_URL
+      ? "Configured · connect to listen"
+      : "Not configured",
     sharing: "Disabled · operator-only lab",
     editions: await listEditions(),
   });
